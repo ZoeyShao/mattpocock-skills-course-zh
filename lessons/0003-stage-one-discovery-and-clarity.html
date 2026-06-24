@@ -27,7 +27,6 @@
     .graph-node-body { font: 14px ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", serif; fill: var(--ink); }
     .graph-type { font: 700 11px ui-sans-serif, system-ui, sans-serif; letter-spacing: 0.04em; }
     .graph-edge { stroke: #74808f; stroke-width: 2.2; fill: none; marker-end: url(#arrowhead); }
-    .graph-edge-label { font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fill: #596675; }
     .graph-discuss { fill: #e8f6f3; stroke: #0f766e; }
     .graph-research { fill: #eef2ff; stroke: #4f46e5; }
     .graph-prototype { fill: #fff4d6; stroke: #b45309; }
@@ -100,7 +99,7 @@ Type: Research
 Blocked by: #1, #2
 Type: Prototype</code></pre>
     <figure class="decision-graph">
-      <svg viewBox="0 0 760 410" role="img" aria-labelledby="decision-graph-title" aria-describedby="decision-graph-desc">
+      <svg viewBox="0 0 920 520" role="img" aria-labelledby="decision-graph-title" aria-describedby="decision-graph-desc">
         <title id="decision-graph-title">团队邀请系统 decision map 的有向依赖图</title>
         <desc id="decision-graph-desc">每个 ticket 是一个节点。箭头从 blocker 指向被它阻塞的 ticket。Discuss、Research 和 Prototype 使用不同颜色的节点。</desc>
         <defs>
@@ -109,46 +108,42 @@ Type: Prototype</code></pre>
           </marker>
         </defs>
 
-        <path class="graph-edge" d="M210 134 C262 118, 296 114, 344 118"></path>
-        <text class="graph-edge-label" x="262" y="104">#2 blocked by #1</text>
-        <path class="graph-edge" d="M208 152 C262 196, 296 220, 344 238"></path>
-        <text class="graph-edge-label" x="250" y="210">#3 blocked by #1</text>
-        <path class="graph-edge" d="M178 188 C280 332, 490 340, 584 254"></path>
-        <text class="graph-edge-label" x="336" y="356">#4 blocked by #1</text>
-        <path class="graph-edge" d="M520 148 C586 156, 620 184, 636 224"></path>
-        <text class="graph-edge-label" x="548" y="142">#4 blocked by #2</text>
+        <path class="graph-edge" d="M248 228 C292 174, 326 140, 374 140"></path>
+        <path class="graph-edge" d="M248 292 C294 346, 326 382, 374 386"></path>
+        <path class="graph-edge" d="M560 136 C620 132, 668 158, 706 206"></path>
+        <path class="graph-edge" d="M158 318 C284 492, 558 490, 708 314"></path>
 
-        <g transform="translate(48 92)">
-          <rect class="graph-discuss" width="162" height="96" rx="10"></rect>
+        <g transform="translate(56 208)">
+          <rect class="graph-discuss" width="192" height="110" rx="10"></rect>
           <text class="graph-type" x="14" y="22" fill="#0f766e">DISCUSS</text>
           <text class="graph-node-title" x="14" y="48">#1 核心对象</text>
-          <text class="graph-node-body" x="14" y="73">邀请到底围绕</text>
-          <text class="graph-node-body" x="14" y="92">谁和什么建立？</text>
+          <text class="graph-node-body" x="14" y="76">邀请到底围绕</text>
+          <text class="graph-node-body" x="14" y="96">谁和什么建立？</text>
         </g>
 
-        <g transform="translate(344 70)">
-          <rect class="graph-discuss" width="176" height="92" rx="10"></rect>
+        <g transform="translate(374 90)">
+          <rect class="graph-discuss" width="186" height="100" rx="10"></rect>
           <text class="graph-type" x="14" y="22" fill="#0f766e">DISCUSS</text>
           <text class="graph-node-title" x="14" y="48">#2 过期策略</text>
-          <text class="graph-node-body" x="14" y="73">链接如何过期？</text>
+          <text class="graph-node-body" x="14" y="78">链接如何过期？</text>
         </g>
 
-        <g transform="translate(344 216)">
-          <path class="graph-research" d="M18 0 H158 L176 18 V92 H0 V18 Z"></path>
+        <g transform="translate(374 332)">
+          <path class="graph-research" d="M18 0 H168 L186 18 V110 H0 V18 Z"></path>
           <text class="graph-type" x="14" y="22" fill="#4f46e5">RESEARCH</text>
           <text class="graph-node-title" x="14" y="48">#3 邮件服务</text>
-          <text class="graph-node-body" x="14" y="73">读资料后选择</text>
-          <text class="graph-node-body" x="14" y="92">供应商。</text>
+          <text class="graph-node-body" x="14" y="78">读资料后选择</text>
+          <text class="graph-node-body" x="14" y="98">供应商。</text>
         </g>
 
-        <g transform="translate(584 216)">
-          <path class="graph-prototype" d="M82 0 L164 52 L82 104 L0 52 Z"></path>
-          <text class="graph-type" x="48" y="34" fill="#b45309">PROTOTYPE</text>
-          <text class="graph-node-title" x="40" y="58">#4 UI 手感</text>
-          <text class="graph-node-body" x="38" y="80">试出邀请流程</text>
+        <g transform="translate(706 188)">
+          <path class="graph-prototype" d="M92 0 L184 72 L92 144 L0 72 Z"></path>
+          <text class="graph-type" x="54" y="50" fill="#b45309">PROTOTYPE</text>
+          <text class="graph-node-title" x="50" y="76">#4 UI 手感</text>
+          <text class="graph-node-body" x="44" y="100">试出邀请流程</text>
         </g>
 
-        <g class="graph-legend" transform="translate(48 22)">
+        <g class="graph-legend" transform="translate(56 28)">
           <rect class="graph-discuss" x="0" y="0" width="18" height="18" rx="5"></rect>
           <text x="26" y="14">Discuss</text>
           <path class="graph-research" d="M112 0 H128 L136 8 V18 H104 V8 Z"></path>
@@ -157,7 +152,7 @@ Type: Prototype</code></pre>
           <text x="272" y="14">Prototype</text>
         </g>
       </svg>
-      <figcaption>箭头方向表示依赖顺序：<code>#A → #B</code> 意味着 <code>#B</code> 写了 <code>Blocked by: #A</code>。不同类型的 ticket 用不同形状和颜色表示。</figcaption>
+      <figcaption>箭头方向表示依赖顺序：<code>#A → #B</code> 意味着 <code>#B</code> 写了 <code>Blocked by: #A</code>。例如 <code>#4</code> 同时依赖 <code>#1</code> 和 <code>#2</code>，所以有两条箭头指向它。</figcaption>
     </figure>
 
     <h2>和后续阶段的关系</h2>

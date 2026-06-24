@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>writing-shape / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> writing-shape</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Take a markdown file of raw material and shape it into an article through a conversational session — drafting candidate openings, growing the piece paragraph by paragraph, arguing about format (lists, tables, callouts, quotes) at each step. Use when the user has a pile of notes, fragments, or a rough draft and wants help turning it into something publishable.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p><what-to-do></p>
+<p>The user has passed (or will pass) a markdown file of raw material.
+Treat it as the input pile — anything from a tidy list of fragments to a
+wall of unstructured prose to a transcript. The format does not matter.
+Read it end-to-end before doing anything else.</p>
+<p>Then run a shaping session that produces a separate article document.
+Do not edit the raw material file — it is read-only to this skill.</p>
+<p>If the user did not say where to save the article, ask once and
+remember the path. The user will be editing the article file during the
+session; always re-read it before writing so their edits are
+preserved.</p>
+<p></what-to-do></p>
+<p><supporting-info></p>
+<h2 id="the-loop">The loop</h2>
+<ol type="1">
+<li><strong>Read the pile.</strong> Read the input file in full. Form a
+sense of what’s in it.</li>
+<li><strong>Draft 2–3 candidate openings.</strong> Each opening should
+imply a different thesis or angle for the article. Show all of them.
+Force the user to pick or compose a hybrid. The chosen opening defines
+what the rest of the article must do.</li>
+<li><strong>Grow paragraph by paragraph.</strong> After the opening
+lands, ask “given this opening, what does the reader need to hear next?”
+Pull material from the pile to answer. Argue about whether the next beat
+is a paragraph, a list, a table, a callout, a quote, a code block. Each
+format choice should be deliberate and defensible.</li>
+<li><strong>Append to the article file as you go.</strong> Don’t batch.
+Write each agreed paragraph or block immediately so the user can see the
+article taking shape.</li>
+<li><strong>Loop step 3 until the article is done.</strong> The user
+decides when it’s done.</li>
+</ol>
+<h2 id="conversational-feel">Conversational feel</h2>
+<p>This is a grilling session inverted. In ideation, the question was
+“what are you actually noticing?” Here it’s “what is this article
+actually arguing, and in what order does the reader need to hear it?”
+Push back. Refuse to let weak transitions slide. If a paragraph doesn’t
+earn its place, cut it.</p>
+<p>Specific moves to keep using:</p>
+<ul>
+<li>“What does this paragraph do for the reader that the previous one
+didn’t?”</li>
+<li>“If I cut this, what breaks?”</li>
+<li>“Is this prose, or should it be a list? Why prose?”</li>
+<li>“This sentence is doing two jobs — split it or pick one.”</li>
+<li>“The opening promised X. We’ve drifted to Y. Either re-thread it or
+change the opening.”</li>
+</ul>
+<h2 id="pulling-from-the-pile">Pulling from the pile</h2>
+<p>Treat the raw material as a quarry, not a script. Pull a fragment,
+rework it to fit the surrounding paragraph, and place it. A fragment may
+be split across multiple paragraphs, merged with another, or
+paraphrased. The pile’s job is to be mined; the article’s job is to read
+as one voice.</p>
+<p>If the pile lacks something the article needs, name the gap
+explicitly: “We need an example here and the pile doesn’t have one —
+give me one now or we cut this section.”</p>
+<h2 id="format-arguments-to-actually-have">Format arguments to actually
+have</h2>
+<p>When choosing how to render a beat, weigh these tradeoffs out loud
+with the user, not silently:</p>
+<ul>
+<li><strong>Prose vs. list.</strong> Prose carries argument; lists carry
+parallel items. If items aren’t truly parallel, prose is better. If they
+are, a list is faster to scan.</li>
+<li><strong>Inline vs. callout.</strong> Tips, warnings, and asides go
+in callouts (<code>&gt; [!TIP]</code>, <code>&gt; [!NOTE]</code>) — but
+only if they’d genuinely derail the main argument inline. Otherwise
+leave them inline.</li>
+<li><strong>Table vs. repeated structure.</strong> If the same shape
+repeats 3+ times with the same fields, a table. Otherwise prose with
+bold leads.</li>
+<li><strong>Quote vs. paraphrase.</strong> Quote when the original
+wording is the point. Paraphrase when only the idea matters.</li>
+<li><strong>Code block vs. inline code.</strong> Multi-line, runnable,
+or illustrative → block. Single token or identifier → inline.</li>
+</ul>
+<h2 id="writing-rhythm">Writing rhythm</h2>
+<p>Append to the article file as each block is agreed. Re-read the file
+from disk before every write — the user may have edited between turns.
+Never overwrite blindly. If the user wants a paragraph rewritten, edit
+that specific paragraph in place; leave the rest alone.</p>
+<h2 id="out-of-scope">Out of scope</h2>
+<ul>
+<li>Mining for new fragments that aren’t in the pile (the pile is the
+input — if it’s incomplete, name the gap and either get the user to fill
+it or cut the section).</li>
+<li>Editing the raw material file.</li>
+<li>Publishing, formatting for a specific platform, or adding
+frontmatter the user didn’t ask for.</li>
+</ul>
+<p></supporting-info></p>
+
+</body>
+</html>

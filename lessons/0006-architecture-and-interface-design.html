@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 0006 课：架构与接口设计</title>
+  <style>
+    :root { --ink:#1f2933; --muted:#596675; --paper:#fbfaf7; --panel:#fff; --line:#d8dee6; --accent:#0f766e; --soft:#edf7f5; }
+    body { margin:0; font-family:ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", serif; color:var(--ink); background:var(--paper); line-height:1.65; }
+    main { max-width:860px; margin:44px auto; padding:0 24px 64px; }
+    h1 { margin:0 0 6px; font-size:2.25rem; letter-spacing:0; line-height:1.15; }
+    h2 { margin:32px 0 10px; font-size:1.25rem; }
+    p { max-width:70ch; } code { color:var(--accent); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .meta { color:var(--muted); margin:0 0 30px; font-family:ui-sans-serif, system-ui, sans-serif; font-size:.95rem; }
+    .panel { background:var(--panel); border:1px solid var(--line); padding:18px 20px; margin:18px 0; }
+    .practice { background:var(--soft); border:1px solid #b8ddd7; padding:18px 20px; margin-top:18px; }
+    button { border:1px solid var(--accent); background:white; color:var(--accent); padding:8px 12px; font:600 .9rem ui-sans-serif, system-ui, sans-serif; cursor:pointer; }
+    .answer { display:none; margin-top:12px; border-top:1px solid #b8ddd7; padding-top:12px; }
+    ul, ol { padding-left:1.4rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>架构与接口设计</h1>
+    <p class="meta">第 0006 课 · 工程周期第 3 阶段 · 15 分钟</p>
+    <p>这个阶段决定“代码应该长成什么形状”。核心不是类图，而是 seam、interface、module depth 和测试面。</p>
+
+    <div class="panel">
+      <h2>主语言：codebase-design</h2>
+      <p><a href="/mattpocock-skills-course-zh/reference/skills/codebase-design.html"><code>codebase-design</code></a> 给你一套词：module、interface、implementation、depth、seam、adapter、leverage、locality。它偏爱 deep module：小接口后面藏大量行为。</p>
+      <p>一个好接口应该让调用者少知道，让测试能通过公共行为验证系统，而不是绑死内部实现。</p>
+    </div>
+
+    <h2>两个常见入口</h2>
+    <ul>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/improve-codebase-architecture.html"><code>improve-codebase-architecture</code></a>：当代码库难理解、难测、模块浅，找 deepening 机会。</li>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/codebase-design.html"><code>codebase-design</code></a>：当你需要判断 seam、interface、module depth 和测试面。</li>
+    </ul>
+
+    <div class="panel">
+      <h2>判断问题</h2>
+      <ol>
+        <li>我是在设计新接口，还是修复旧结构？</li>
+        <li>这个 seam 是否真的有多个 adapter，还是我在过早抽象？</li>
+        <li>删除这个模块后，复杂度会消失，还是会散落到多个调用者？</li>
+      </ol>
+    </div>
+
+    <div class="practice">
+      <h2>小测</h2>
+      <p>“我们不知道邀请模块应该暴露 2 个方法还是 8 个方法。”用哪个 skill？</p>
+      <button onclick="toggle('a1')">揭晓</button>
+      <p id="a1" class="answer"><a href="/mattpocock-skills-course-zh/reference/skills/codebase-design.html"><code>codebase-design</code></a>。先用 depth、seam、adapter、locality 这些词判断接口是否真的变深。</p>
+    </div>
+
+    <h2>继续学习</h2>
+    <p><a href="/mattpocock-skills-course-zh/lessons/index.html">回到课程目录</a> · 下一课：<a href="/mattpocock-skills-course-zh/lessons/0007-slicing-triage-and-qa.html">第 0007 课：切片与 Triage</a>。遇到不清楚的术语，可以直接在页面上选中提问。</p>
+  </main>
+  <script>function toggle(id){const e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block';}</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 0004 课：追问、研究与原型</title>
+  <style>
+    :root { --ink:#1f2933; --muted:#596675; --paper:#fbfaf7; --panel:#fff; --line:#d8dee6; --accent:#0f766e; --soft:#edf7f5; }
+    body { margin:0; font-family:ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif; color:var(--ink); background:var(--paper); line-height:1.65; }
+    main { max-width:860px; margin:44px auto; padding:0 24px 64px; }
+    h1 { margin:0 0 6px; font-size:2.25rem; letter-spacing:0; line-height:1.15; }
+    h2 { margin:32px 0 10px; font-size:1.25rem; }
+    p { max-width:70ch; } a { color:var(--accent); } code { color:var(--accent); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .meta { color:var(--muted); margin:0 0 30px; font-family:ui-sans-serif, system-ui, sans-serif; font-size:.95rem; }
+    .panel { background:var(--panel); border:1px solid var(--line); padding:18px 20px; margin:18px 0; }
+    .practice { background:var(--soft); border:1px solid #b8ddd7; padding:18px 20px; margin-top:18px; }
+    button { border:1px solid var(--accent); background:white; color:var(--accent); padding:8px 12px; font:600 .9rem ui-sans-serif, system-ui, sans-serif; cursor:pointer; }
+    .answer { display:none; margin-top:12px; border-top:1px solid #b8ddd7; padding-top:12px; }
+    ul, ol { padding-left:1.4rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>追问、研究与原型</h1>
+    <p class="meta">第 0004 课 · 第 1 阶段补完 · 12 分钟</p>
+    <p>第 1 阶段的工作不是“想久一点”，而是给每个未知数选正确的求解方式。</p>
+
+    <div class="panel">
+      <h2>三种求解方式</h2>
+      <ul>
+        <li><strong>Discuss：</strong>靠取舍解决，用 <a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a> 一次只问一个问题。</li>
+        <li><strong>Research：</strong>靠资料解决，读文档、规范、API 或本地知识库，产出摘要。</li>
+        <li><strong>Prototype：</strong>靠试出来解决，用 <a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a> 做一次性 UI 或逻辑原型。</li>
+      </ul>
+    </div>
+
+    <h2>prototype 的关键判断</h2>
+    <p><a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a> 是“用一次性代码回答一个问题”。如果问题是状态模型、业务逻辑或流程是否合理，做终端或逻辑原型；如果问题是视觉和交互感觉，做 UI 变体原型。原型的价值不是代码，而是结论。</p>
+
+    <h2>handoff 在这里的作用</h2>
+    <p>如果原型需要新会话或上下文已经太长，先用 <a href="/mattpocock-skills-course-zh/reference/skills/handoff.html"><code>handoff</code></a> 把当前决策和问题写成交接文档。原型完成后，再把学到的结论 handoff 回主线。</p>
+
+    <div class="practice">
+      <h2>小测</h2>
+      <p>“我们不知道订阅取消后是否还能访问历史发票。”选哪种票据？</p>
+      <button onclick="toggle('a1')">揭晓</button>
+      <p id="a1" class="answer">通常是 Discuss：这是产品规则取舍。若涉及支付平台限制，再加 Research 票据。</p>
+    </div>
+
+    <p>参考：<a href="../reference/0005-full-project-skill-playbook.html">完整项目 Skill Playbook</a>。</p>
+    <h2>继续学习</h2>
+    <p><a href="/mattpocock-skills-course-zh/lessons/index.html">回到课程目录</a> · 下一课：<a href="/mattpocock-skills-course-zh/lessons/0005-requirements-and-domain-language.html">第 0005 课：需求与领域语言</a>。遇到不清楚的术语，可以直接在页面上选中提问。</p>
+  </main>
+  <script>function toggle(id){const e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block';}</script>
+</body>
+</html>

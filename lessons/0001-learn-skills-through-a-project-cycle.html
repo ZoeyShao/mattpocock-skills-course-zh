@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 0001 课：项目周期总览</title>
+  <style>
+    :root { color-scheme: light; --ink: #1f2933; --muted: #596675; --paper: #fbfaf7; --panel: #ffffff; --line: #d8dee6; --accent: #0f766e; --soft: #edf7f5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif; color: var(--ink); background: var(--paper); line-height: 1.65; }
+    main { max-width: 850px; margin: 44px auto; padding: 0 24px 64px; }
+    h1 { margin: 0 0 6px; font-size: 2.25rem; letter-spacing: 0; line-height: 1.15; }
+    h2 { margin: 32px 0 10px; font-size: 1.25rem; }
+    p { max-width: 70ch; }
+    a { color: var(--accent); }
+    code { color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .meta { color: var(--muted); margin: 0 0 30px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.95rem; }
+    .panel { background: var(--panel); border: 1px solid var(--line); padding: 18px 20px; margin: 18px 0; }
+    .practice { background: var(--soft); border: 1px solid #b8ddd7; padding: 18px 20px; margin-top: 18px; }
+    button { border: 1px solid var(--accent); background: white; color: var(--accent); padding: 8px 12px; font: 600 0.9rem ui-sans-serif, system-ui, sans-serif; cursor: pointer; margin-top: 8px; }
+    .answer { display: none; margin-top: 12px; color: var(--ink); border-top: 1px solid #b8ddd7; padding-top: 12px; }
+    ol, ul { padding-left: 1.4rem; }
+    @media print { body { background: white; } main { margin: 0; max-width: none; } button { display: none; } .answer { display: block; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>项目周期总览</h1>
+    <p class="meta">第 0001 课 · 工程范式 · 12 分钟</p>
+
+    <p>从这一课开始，我们不按 skill 名字学习，而按真实项目周期学习。一个 skill 的意义，来自它在项目阶段里解决的问题。</p>
+
+    <div class="panel">
+      <h2>项目周期视角</h2>
+      <p>把一次工程工作粗略看成八个阶段：</p>
+      <ol>
+        <li>工作区准备</li>
+        <li>发现与澄清</li>
+        <li>需求与领域语言</li>
+        <li>架构与接口设计</li>
+        <li>切片与排期</li>
+        <li>实现与验证</li>
+        <li>质量门禁</li>
+        <li>知识沉淀与交接</li>
+      </ol>
+      <p>参考：<a href="../reference/0002-project-lifecycle-skill-map.html">项目周期 Skill 地图</a>。</p>
+    </div>
+
+    <h2>关键判断</h2>
+    <p>面对一个请求，不要先问“我记得哪个 skill”。先问三个问题：</p>
+    <ol>
+      <li><strong>现在处于哪个项目阶段？</strong>例如发现、需求、设计、实现、review。</li>
+      <li><strong>这个阶段的产物是什么？</strong>例如 PRD、issue、测试、review 结论、handoff。</li>
+      <li><strong>这个 skill 是否能直接推动产物成形？</strong>如果不能，它可能只是看起来相关。</li>
+    </ol>
+
+    <div class="panel">
+      <h2>例子：一个功能从想法到完成</h2>
+      <p>“我想给应用加一个团队邀请功能。”</p>
+      <p>早期你可能用 <a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 澄清未知数，用 <a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a> 写需求，用 <a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a> 固定术语。进入设计后，可能用 <a href="/mattpocock-skills-course-zh/reference/skills/codebase-design.html"><code>codebase-design</code></a> 判断接口和 seam。拆工作时用 <a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a>。实现时用 <a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a> 或 <a href="/mattpocock-skills-course-zh/reference/skills/implement.html"><code>implement</code></a>。遇到 bug 用 <a href="/mattpocock-skills-course-zh/reference/skills/diagnosing-bugs.html"><code>diagnosing-bugs</code></a>。完成后用 <a href="/mattpocock-skills-course-zh/reference/skills/review.html"><code>review</code></a> 检查，再用 <a href="/mattpocock-skills-course-zh/reference/skills/handoff.html"><code>handoff</code></a> 交接上下文。</p>
+    </div>
+
+    <div class="practice">
+      <h2>回忆练习</h2>
+      <p>先判断阶段，再选 skill。想好后揭晓答案。</p>
+
+      <p><strong>1.</strong>“我们知道要做邀请功能，但还不知道邀请过期、权限和邮件失败怎么处理。”</p>
+      <button onclick="toggle('a1')">揭晓答案</button>
+      <p id="a1" class="answer">阶段：发现与澄清。可能用 <a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 拆未知数，或用 <a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a> 追问边界。</p>
+
+      <p><strong>2.</strong>“需求差不多清楚了，请把它变成可验收的文档。”</p>
+      <button onclick="toggle('a2')">揭晓答案</button>
+      <p id="a2" class="answer">阶段：需求与领域语言。可能用 <a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a>，如果术语混乱则搭配 <a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a> 或 <a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a>。</p>
+
+      <p><strong>3.</strong>“PRD 已经有了，现在要拆成几个 agent 可以独立完成的任务。”</p>
+      <button onclick="toggle('a3')">揭晓答案</button>
+      <p id="a3" class="answer">阶段：切片与排期。可能用 <a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a>，目标是得到独立可抓取、可验收的小任务。</p>
+    </div>
+
+    <h2>主要来源</h2>
+    <p>本课基于 <code>mattpocock/skills</code> 仓库中非 deprecated skills 的 frontmatter description 和工作流说明，并压缩成 <a href="../reference/0002-project-lifecycle-skill-map.html">项目周期 Skill 地图</a>。后续每进入一个阶段，我们会打开该阶段最重要的渲染版 <code>SKILL.md</code> 细读。</p>
+
+    <h2>继续学习</h2>
+    <p><a href="/mattpocock-skills-course-zh/lessons/index.html">回到课程目录</a> · 下一课：<a href="/mattpocock-skills-course-zh/lessons/0002-stage-zero-prepare-the-repo.html">第 0002 课：准备 Repo</a>。遇到不清楚的术语，可以直接在页面上选中提问。</p>
+  </main>
+
+  <script>
+    function toggle(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>

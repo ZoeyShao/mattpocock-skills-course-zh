@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skill 家族地图</title>
+  <style>
+    :root { color-scheme: light; --ink: #1f2933; --muted: #5f6b7a; --line: #d8dee6; --paper: #fbfaf7; --accent: #0f766e; }
+    body { margin: 0; font-family: ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif; color: var(--ink); background: var(--paper); line-height: 1.65; }
+    main { max-width: 920px; margin: 48px auto; padding: 0 24px 64px; }
+    h1 { font-size: 2.2rem; margin: 0 0 0.2rem; letter-spacing: 0; }
+    .lede { color: var(--muted); margin: 0 0 2rem; max-width: 68ch; }
+    table { width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--line); }
+    th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    th { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); background: #f4f6f8; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--accent); }
+    .rule { margin-top: 24px; padding: 16px 18px; border-left: 4px solid var(--accent); background: white; }
+    @media print { body { background: white; } main { margin: 0; max-width: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Skill 家族地图</h1>
+    <p class="lede">先看这张图。精确选中某个 skill 很重要，但第一步更重要：先选对工作流家族。</p>
+
+    <table>
+      <thead>
+        <tr><th>家族</th><th>先问什么</th><th>Skills</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>路由与初始化</td>
+          <td>我们是否需要先寻找、安装或配置 skill 系统？</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/ask-matt.html"><code>ask-matt</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/setup-matt-pocock-skills.html"><code>setup-matt-pocock-skills</code></a></td>
+        </tr>
+        <tr>
+          <td>诊断与实现</td>
+          <td>我们是在修 bug、写功能、补测试、做 review，还是解决冲突？</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/diagnosing-bugs.html"><code>diagnosing-bugs</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/implement.html"><code>implement</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/review.html"><code>review</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/resolving-merge-conflicts.html"><code>resolving-merge-conflicts</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/migrate-to-shoehorn.html"><code>migrate-to-shoehorn</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/scaffold-exercises.html"><code>scaffold-exercises</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/setup-pre-commit.html"><code>setup-pre-commit</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/git-guardrails-claude-code.html"><code>git-guardrails-claude-code</code></a></td>
+        </tr>
+        <tr>
+          <td>规划与产品流</td>
+          <td>我们是否要把模糊想法变成决策、issue、PRD 或 triage 状态？</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/triage.html"><code>triage</code></a></td>
+        </tr>
+        <tr>
+          <td>架构与领域语言</td>
+          <td>我们是否在命名概念、改善模块边界、设计接口，或拉远视角？</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/codebase-design.html"><code>codebase-design</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/improve-codebase-architecture.html"><code>improve-codebase-architecture</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a></td>
+        </tr>
+        <tr>
+          <td>写作与教学</td>
+          <td>我们是否在整理文章、生成课程，或写更好的 skill？</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/edit-article.html"><code>edit-article</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/writing-beats.html"><code>writing-beats</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/writing-fragments.html"><code>writing-fragments</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/writing-shape.html"><code>writing-shape</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/writing-great-skills.html"><code>writing-great-skills</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/teach.html"><code>teach</code></a></td>
+        </tr>
+        <tr>
+          <td>追问、压缩与交接</td>
+          <td>我们是否需要高强度追问、压缩表达、延续上下文或交接工作？</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/grill-me.html"><code>grill-me</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/handoff.html"><code>handoff</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/obsidian-vault.html"><code>obsidian-vault</code></a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="rule">
+      <strong>路由规则：</strong>先按“最终产物”给任务分类。代码改动、issues、PRD、课程、文章、领域文档和 handoff，通常会指向不同的 skill 家族。
+    </div>
+
+    <h2>常见缩写</h2>
+    <table>
+      <thead>
+        <tr><th>缩写</th><th>意思</th><th>什么时候想到它</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a></td>
+          <td>Test-Driven Development，测试驱动开发。</td>
+          <td>当你想先写测试、再写实现，并按“红灯、绿灯、重构”的循环推进功能或修 bug。</td>
+        </tr>
+        <tr>
+          <td><code>prd</code></td>
+          <td>Product Requirements Document，产品需求文档。</td>
+          <td>当你需要把模糊想法整理成可实现、可验收的需求。</td>
+        </tr>
+        <tr>
+          <td><code>QA</code></td>
+          <td>Quality Assurance，质量保证或测试反馈。</td>
+          <td>当你在试玩、验收、报告问题，或把问题整理成 issue。</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

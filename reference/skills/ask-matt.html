@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ask-matt / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> ask-matt</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">disable-model-invocation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<h1 id="ask-matt">Ask Matt</h1>
+<p>You don’t remember every skill, so ask.</p>
+<p>A <strong>flow</strong> is a path through the skills. Most paths run
+along one <strong>main flow</strong>, and two <strong>on-ramps</strong>
+merge onto it. Everything else is standalone.</p>
+<h2 id="the-main-flow-idea-ship">The main flow: idea → ship</h2>
+<p>The route most work travels. You have an idea and want it built.</p>
+<ol type="1">
+<li><strong><code>/grill-with-docs</code></strong> — sharpen the idea by
+interview. Start here when you <strong>have a codebase</strong>: it’s
+stateful, retaining what it learns in <code>CONTEXT.md</code> and ADRs.
+(No codebase? Use <code>/grill-me</code> — see Standalone.)</li>
+<li><strong>Branch — can you settle every question in
+conversation?</strong> If a question needs a runnable answer (state,
+business logic, a UI you have to see), detour through a prototype,
+bridged by <strong><code>/handoff</code></strong> in both directions
+(see Crossing sessions):
+<ul>
+<li><strong><code>/handoff</code></strong> out, then open a fresh
+session against that file,</li>
+<li><strong><code>/prototype</code></strong> to answer the question with
+throwaway code,</li>
+<li><strong><code>/handoff</code></strong> back what you learned, and
+reference it from the original idea thread.</li>
+</ul></li>
+<li><strong>Branch — is this a multi-session build?</strong>
+<ul>
+<li><strong>Yes</strong> → <strong><code>/to-prd</code></strong> (turn
+the thread into a PRD) → <strong><code>/to-issues</code></strong> (split
+the PRD into independently-grabbable issues). Because the issues are
+independent, <strong>clear context between each one</strong>: start a
+fresh session per issue and kick off
+<strong><code>/implement</code></strong> by passing it the PRD and the
+single issue to work on.</li>
+<li><strong>No</strong> → <strong><code>/implement</code></strong> right
+here, in the same context window.</li>
+</ul></li>
+</ol>
+<h3 id="context-hygiene">Context hygiene</h3>
+<p>Keep steps 1–3 in <strong>one unbroken context window</strong> —
+don’t compact or clear until after <code>/to-issues</code> — so the
+grilling, PRD, and issues all build on the same thinking. Each
+<code>/implement</code> then starts fresh, working from the issue.</p>
+<p>The limit on this is the <strong><a
+href="https://www.aihero.dev/ai-coding-dictionary/smart-zone">smart
+zone</a></strong>: the window (~120k tokens on state-of-the-art models)
+within which the model still reasons sharply. If a session approaches it
+before <code>/to-issues</code>, don’t push on degraded —
+<code>/handoff</code> and continue in a fresh thread.</p>
+<h2 id="on-ramps">On-ramps</h2>
+<p>A starting situation that generates work, then merges onto the main
+flow.</p>
+<ul>
+<li><p><strong>Bugs and requests piling up</strong> →
+<strong><code>/triage</code></strong>. It moves issues through triage
+roles and produces agent-ready issues, which
+<strong><code>/implement</code></strong> later picks up.</p>
+<p>Triage is only for issues <strong>you didn’t create</strong> — bug
+reports, incoming feature requests, anything that arrives raw. Issues
+that <code>/to-issues</code> produced are already agent-ready, so
+<strong>don’t triage them</strong>.</p></li>
+</ul>
+<h2 id="codebase-health">Codebase health</h2>
+<p>Not feature work — upkeep.</p>
+<ul>
+<li><strong><code>/improve-codebase-architecture</code></strong> — run
+whenever you have a spare moment to keep the codebase good for agents to
+operate in. It surfaces deepening opportunities; picking one
+<em>generates an idea</em> you can take into the main flow at
+<code>/grill-with-docs</code>.</li>
+</ul>
+<h2 id="crossing-sessions">Crossing sessions</h2>
+<ul>
+<li><strong><code>/handoff</code></strong> — when a thread is full or
+you need to branch off (e.g. into a <code>/prototype</code> session),
+this compacts the conversation into a markdown file. You don’t continue
+in place — you <strong>open a new session and reference that
+file</strong> to carry the context across. It’s the bridge between
+context windows, in either direction. Use it when you want a
+<strong>fresh session</strong> but need the <strong>current conversation
+preserved</strong>.</li>
+<li><strong><code>/compact</code></strong> (built-in) — stay in the
+<strong>same conversation</strong>, letting the earlier turns be
+summarized. Use it at <strong>intentional breaks between
+phases</strong>, when you don’t mind losing the verbatim history. Don’t
+compact mid-phase — the agent can lose its way. <code>/handoff</code>
+forks; <code>/compact</code> continues.</li>
+</ul>
+<h2 id="standalone">Standalone</h2>
+<p>Off the main flow entirely.</p>
+<ul>
+<li><strong><code>/grill-me</code></strong> — the same relentless
+interview as <code>/grill-with-docs</code>, but for when you have
+<strong>no codebase</strong>. Stateless: it saves nothing locally,
+builds no <code>CONTEXT.md</code>. Reach for it to sharpen any plan or
+design that doesn’t live in a repo.</li>
+<li><strong><code>/teach</code></strong> — learn a concept over multiple
+sessions, using the current directory as a stateful workspace.</li>
+<li><strong><code>/writing-great-skills</code></strong> — reference for
+writing and editing skills well.</li>
+</ul>
+<h2 id="precondition">Precondition</h2>
+<p><strong><code>/setup-matt-pocock-skills</code></strong> — run before
+your first engineering flow to configure the issue tracker, triage
+labels, and doc layout the other skills assume. Custom issue trackers
+also work.</p>
+
+</body>
+</html>

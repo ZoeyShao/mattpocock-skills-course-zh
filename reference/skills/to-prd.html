@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>to-prd / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> to-prd</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Turn the current conversation context into a PRD and publish it to the project issue tracker. Use when user wants to create a PRD from the current context.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p>This skill takes the current conversation context and codebase
+understanding and produces a PRD. Do NOT interview the user — just
+synthesize what you already know.</p>
+<p>The issue tracker and triage label vocabulary should have been
+provided to you — run <code>/setup-matt-pocock-skills</code> if not.</p>
+<h2 id="process">Process</h2>
+<ol type="1">
+<li><p>Explore the repo to understand the current state of the codebase,
+if you haven’t already. Use the project’s domain glossary vocabulary
+throughout the PRD, and respect any ADRs in the area you’re
+touching.</p></li>
+<li><p>Sketch out the seams at which you’re going to test the feature.
+Existing seams should be preferred to new ones. Use the highest seam
+possible. If new seams are needed, propose them at the highest point you
+can.</p></li>
+</ol>
+<p>Check with the user that these seams match their expectations.</p>
+<ol start="3" type="1">
+<li>Write the PRD using the template below, then publish it to the
+project issue tracker. Apply the <code>ready-for-agent</code> triage
+label - no need for additional triage.</li>
+</ol>
+<p><prd-template></p>
+<h2 id="problem-statement">Problem Statement</h2>
+<p>The problem that the user is facing, from the user’s perspective.</p>
+<h2 id="solution">Solution</h2>
+<p>The solution to the problem, from the user’s perspective.</p>
+<h2 id="user-stories">User Stories</h2>
+<p>A LONG, numbered list of user stories. Each user story should be in
+the format of:</p>
+<ol type="1">
+<li>As an <actor>, I want a <feature>, so that <benefit></li>
+</ol>
+<p><user-story-example> 1. As a mobile bank customer, I want to see
+balance on my accounts, so that I can make better informed decisions
+about my spending </user-story-example></p>
+<p>This list of user stories should be extremely extensive and cover all
+aspects of the feature.</p>
+<h2 id="implementation-decisions">Implementation Decisions</h2>
+<p>A list of implementation decisions that were made. This can
+include:</p>
+<ul>
+<li>The modules that will be built/modified</li>
+<li>The interfaces of those modules that will be modified</li>
+<li>Technical clarifications from the developer</li>
+<li>Architectural decisions</li>
+<li>Schema changes</li>
+<li>API contracts</li>
+<li>Specific interactions</li>
+</ul>
+<p>Do NOT include specific file paths or code snippets. They may end up
+being outdated very quickly.</p>
+<p>Exception: if a prototype produced a snippet that encodes a decision
+more precisely than prose can (state machine, reducer, schema, type
+shape), inline it within the relevant decision and note briefly that it
+came from a prototype. Trim to the decision-rich parts — not a working
+demo, just the important bits.</p>
+<h2 id="testing-decisions">Testing Decisions</h2>
+<p>A list of testing decisions that were made. Include:</p>
+<ul>
+<li>A description of what makes a good test (only test external
+behavior, not implementation details)</li>
+<li>Which modules will be tested</li>
+<li>Prior art for the tests (i.e. similar types of tests in the
+codebase)</li>
+</ul>
+<h2 id="out-of-scope">Out of Scope</h2>
+<p>A description of the things that are out of scope for this PRD.</p>
+<h2 id="further-notes">Further Notes</h2>
+<p>Any further notes about the feature.</p>
+<p></prd-template></p>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 0005 课：需求与领域语言</title>
+  <style>
+    :root { --ink:#1f2933; --muted:#596675; --paper:#fbfaf7; --panel:#fff; --line:#d8dee6; --accent:#0f766e; --soft:#edf7f5; }
+    body { margin:0; font-family:ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif; color:var(--ink); background:var(--paper); line-height:1.65; }
+    main { max-width:860px; margin:44px auto; padding:0 24px 64px; }
+    h1 { margin:0 0 6px; font-size:2.25rem; letter-spacing:0; line-height:1.15; }
+    h2 { margin:32px 0 10px; font-size:1.25rem; }
+    p { max-width:70ch; } a { color:var(--accent); } code { color:var(--accent); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .meta { color:var(--muted); margin:0 0 30px; font-family:ui-sans-serif, system-ui, sans-serif; font-size:.95rem; }
+    .panel { background:var(--panel); border:1px solid var(--line); padding:18px 20px; margin:18px 0; }
+    .practice { background:var(--soft); border:1px solid #b8ddd7; padding:18px 20px; margin-top:18px; }
+    button { border:1px solid var(--accent); background:white; color:var(--accent); padding:8px 12px; font:600 .9rem ui-sans-serif, system-ui, sans-serif; cursor:pointer; }
+    .answer { display:none; margin-top:12px; border-top:1px solid #b8ddd7; padding-top:12px; }
+    ul, ol { padding-left:1.4rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>需求与领域语言</h1>
+    <p class="meta">第 0005 课 · 工程周期第 2 阶段 · 15 分钟</p>
+    <p>当关键未知数已经足够清楚，下一步是把它们变成可验收、可交给 agent 或人类实现的需求。</p>
+
+    <div class="panel">
+      <h2>to-prd 的位置</h2>
+      <p><a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a> 把当前上下文合成为 PRD，并发布到 issue tracker。它不重新采访用户，而是整理已经知道的内容：问题、方案、用户故事、实现决策、测试决策、范围外事项。</p>
+      <p>如果 issue tracker 或 triage 标签还没配置，应先回到第 0 阶段。</p>
+    </div>
+
+    <h2>领域语言为什么跟 PRD 绑定</h2>
+    <p>PRD 不是只给人读，也给后续 agent 读。术语不稳，后续 issue、测试名、接口名都会漂移。这里会用到：</p>
+    <p>这里要区分两个文档角色：领域语言负责固定“这些概念叫什么、边界在哪里”；ADR 负责记录“我们为什么选择这种设计”。如果 PRD 里出现重要技术取舍，就可能需要补 ADR。</p>
+    <ul>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a>：当场挑战模糊词，更新 <code>CONTEXT.md</code>，必要时写 ADR。</li>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a>：一边追问，一边对照现有领域文档和 ADR。</li>
+    </ul>
+
+    <div class="panel">
+      <h2>判断顺序</h2>
+      <ol>
+        <li>术语是否清楚？不清楚先 domain-modeling。</li>
+        <li>需求是否可验收？不清楚继续 grill-with-docs。</li>
+        <li>上下文是否足够？足够后用 to-prd。</li>
+      </ol>
+    </div>
+
+    <div class="practice">
+      <h2>小测</h2>
+      <p>“用户、成员、账号在对话里混着用。”下一步是什么？</p>
+      <button onclick="toggle('a1')">揭晓</button>
+      <p id="a1" class="answer">先用 <a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a> 固定术语；如果还要边追问边更新文档，用 <a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a>。</p>
+    </div>
+
+    <h2>继续学习</h2>
+    <p><a href="/mattpocock-skills-course-zh/lessons/index.html">回到课程目录</a> · 下一课：<a href="/mattpocock-skills-course-zh/lessons/0006-architecture-and-interface-design.html">第 0006 课：架构与接口设计</a>。遇到不清楚的术语，可以直接在页面上选中提问。</p>
+  </main>
+  <script>function toggle(id){const e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block';}</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>obsidian-vault / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> obsidian-vault</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Search, create, and manage notes in the Obsidian vault with wikilinks and index notes. Use when user wants to find, create, or organize notes in Obsidian.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<h1 id="obsidian-vault">Obsidian Vault</h1>
+<h2 id="vault-location">Vault location</h2>
+<p><code>/mnt/d/Obsidian Vault/AI Research/</code></p>
+<p>Mostly flat at root level.</p>
+<h2 id="naming-conventions">Naming conventions</h2>
+<ul>
+<li><strong>Index notes</strong>: aggregate related topics (e.g.,
+<code>Ralph Wiggum Index.md</code>, <code>Skills Index.md</code>,
+<code>RAG Index.md</code>)</li>
+<li><strong>Title case</strong> for all note names</li>
+<li>No folders for organization - use links and index notes instead</li>
+</ul>
+<h2 id="linking">Linking</h2>
+<ul>
+<li>Use Obsidian <code>[[wikilinks]]</code> syntax:
+<code>[[Note Title]]</code></li>
+<li>Notes link to dependencies/related notes at the bottom</li>
+<li>Index notes are just lists of <code>[[wikilinks]]</code></li>
+</ul>
+<h2 id="workflows">Workflows</h2>
+<h3 id="search-for-notes">Search for notes</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Search by filename</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> <span class="st">&quot;/mnt/d/Obsidian Vault/AI Research/&quot;</span> <span class="at">-name</span> <span class="st">&quot;*.md&quot;</span> <span class="kw">|</span> <span class="fu">grep</span> <span class="at">-i</span> <span class="st">&quot;keyword&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Search by content</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-rl</span> <span class="st">&quot;keyword&quot;</span> <span class="st">&quot;/mnt/d/Obsidian Vault/AI Research/&quot;</span> <span class="at">--include</span><span class="op">=</span><span class="st">&quot;*.md&quot;</span></span></code></pre></div>
+<p>Or use Grep/Glob tools directly on the vault path.</p>
+<h3 id="create-a-new-note">Create a new note</h3>
+<ol type="1">
+<li>Use <strong>Title Case</strong> for filename</li>
+<li>Write content as a unit of learning (per vault rules)</li>
+<li>Add <code>[[wikilinks]]</code> to related notes at the bottom</li>
+<li>If part of a numbered sequence, use the hierarchical numbering
+scheme</li>
+</ol>
+<h3 id="find-related-notes">Find related notes</h3>
+<p>Search for <code>[[Note Title]]</code> across the vault to find
+backlinks:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grep</span> <span class="at">-rl</span> <span class="st">&quot;</span><span class="dt">\\</span><span class="st">[</span><span class="dt">\\</span><span class="st">[Note Title</span><span class="dt">\\</span><span class="st">]</span><span class="dt">\\</span><span class="st">]&quot;</span> <span class="st">&quot;/mnt/d/Obsidian Vault/AI Research/&quot;</span></span></code></pre></div>
+<h3 id="find-index-notes">Find index notes</h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> <span class="st">&quot;/mnt/d/Obsidian Vault/AI Research/&quot;</span> <span class="at">-name</span> <span class="st">&quot;*Index*&quot;</span></span></code></pre></div>
+
+</body>
+</html>

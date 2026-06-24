@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>domain-modeling / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> domain-modeling</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Build and sharpen a project&#39;s domain model. Use when the user wants to pin down domain terminology or a ubiquitous language, record an architectural decision, or when another skill needs to maintain the domain model.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<h1 id="domain-modeling">Domain Modeling</h1>
+<p>Actively build and sharpen the project’s domain model as you design.
+This is the <em>active</em> discipline — challenging terms, inventing
+edge-case scenarios, and writing the glossary and decisions down the
+moment they crystallise. (Merely <em>reading</em>
+<code>CONTEXT.md</code> for vocabulary is not this skill — that’s a
+one-line habit any skill can do. This skill is for when you’re changing
+the model, not just consuming it.)</p>
+<h2 id="file-structure">File structure</h2>
+<p>Most repos have a single context:</p>
+<pre><code>/
+├── CONTEXT.md
+├── docs/
+│   └── adr/
+│       ├── 0001-event-sourced-orders.md
+│       └── 0002-postgres-for-write-model.md
+└── src/</code></pre>
+<p>If a <code>CONTEXT-MAP.md</code> exists at the root, the repo has
+multiple contexts. The map points to where each one lives:</p>
+<pre><code>/
+├── CONTEXT-MAP.md
+├── docs/
+│   └── adr/                          ← system-wide decisions
+├── src/
+│   ├── ordering/
+│   │   ├── CONTEXT.md
+│   │   └── docs/adr/                 ← context-specific decisions
+│   └── billing/
+│       ├── CONTEXT.md
+│       └── docs/adr/</code></pre>
+<p>Create files lazily — only when you have something to write. If no
+<code>CONTEXT.md</code> exists, create one when the first term is
+resolved. If no <code>docs/adr/</code> exists, create it when the first
+ADR is needed.</p>
+<h2 id="during-the-session">During the session</h2>
+<h3 id="challenge-against-the-glossary">Challenge against the
+glossary</h3>
+<p>When the user uses a term that conflicts with the existing language
+in <code>CONTEXT.md</code>, call it out immediately. “Your glossary
+defines ‘cancellation’ as X, but you seem to mean Y — which is it?”</p>
+<h3 id="sharpen-fuzzy-language">Sharpen fuzzy language</h3>
+<p>When the user uses vague or overloaded terms, propose a precise
+canonical term. “You’re saying ‘account’ — do you mean the Customer or
+the User? Those are different things.”</p>
+<h3 id="discuss-concrete-scenarios">Discuss concrete scenarios</h3>
+<p>When domain relationships are being discussed, stress-test them with
+specific scenarios. Invent scenarios that probe edge cases and force the
+user to be precise about the boundaries between concepts.</p>
+<h3 id="cross-reference-with-code">Cross-reference with code</h3>
+<p>When the user states how something works, check whether the code
+agrees. If you find a contradiction, surface it: “Your code cancels
+entire Orders, but you just said partial cancellation is possible —
+which is right?”</p>
+<h3 id="update-context.md-inline">Update CONTEXT.md inline</h3>
+<p>When a term is resolved, update <code>CONTEXT.md</code> right there.
+Don’t batch these up — capture them as they happen. Use the format in <a
+href="./CONTEXT-FORMAT.md">CONTEXT-FORMAT.md</a>.</p>
+<p><code>CONTEXT.md</code> should be totally devoid of implementation
+details. Do not treat <code>CONTEXT.md</code> as a spec, a scratch pad,
+or a repository for implementation decisions. It is a glossary and
+nothing else.</p>
+<h3 id="offer-adrs-sparingly">Offer ADRs sparingly</h3>
+<p>Only offer to create an ADR when all three are true:</p>
+<ol type="1">
+<li><strong>Hard to reverse</strong> — the cost of changing your mind
+later is meaningful</li>
+<li><strong>Surprising without context</strong> — a future reader will
+wonder “why did they do it this way?”</li>
+<li><strong>The result of a real trade-off</strong> — there were genuine
+alternatives and you picked one for specific reasons</li>
+</ol>
+<p>If any of the three is missing, skip the ADR. Use the format in <a
+href="./ADR-FORMAT.md">ADR-FORMAT.md</a>.</p>
+
+</body>
+</html>

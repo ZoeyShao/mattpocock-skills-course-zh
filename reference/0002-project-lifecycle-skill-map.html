@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>项目周期 Skill 地图</title>
+  <style>
+    :root { color-scheme: light; --ink: #1f2933; --muted: #5f6b7a; --line: #d8dee6; --paper: #fbfaf7; --accent: #0f766e; --panel: #fff; }
+    body { margin: 0; font-family: ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif; color: var(--ink); background: var(--paper); line-height: 1.65; }
+    main { max-width: 980px; margin: 48px auto; padding: 0 24px 64px; }
+    h1 { font-size: 2.2rem; margin: 0 0 0.2rem; letter-spacing: 0; }
+    h2 { margin: 34px 0 10px; font-size: 1.25rem; }
+    .lede { color: var(--muted); margin: 0 0 2rem; max-width: 72ch; }
+    table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); }
+    th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    th { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); background: #f4f6f8; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--accent); }
+    .note { margin-top: 24px; padding: 16px 18px; border-left: 4px solid var(--accent); background: white; }
+    @media print { body { background: white; } main { margin: 0; max-width: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>项目周期 Skill 地图</h1>
+    <p class="lede">把 skills 当成工程周期里的工具，而不是孤立命令。先判断项目处在哪个阶段，再选择合适的 skill 组合。</p>
+
+    <table>
+      <thead>
+        <tr><th>阶段</th><th>核心问题</th><th>典型产物</th><th>可能用到的 skills</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0. 工作区准备</td>
+          <td>这个 repo 是否已经具备让 skills 正常工作的上下文？</td>
+          <td>Agent 配置、issue 追踪约定、领域文档位置</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/setup-matt-pocock-skills.html"><code>setup-matt-pocock-skills</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/ask-matt.html"><code>ask-matt</code></a></td>
+        </tr>
+        <tr>
+          <td>1. 发现与澄清</td>
+          <td>我们到底要解决什么问题？有什么未知数？</td>
+          <td>决策地图、追问记录、原型、问题边界</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/grill-me.html"><code>grill-me</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a></td>
+        </tr>
+        <tr>
+          <td>2. 需求与领域语言</td>
+          <td>需求如何验收？项目里这些词是什么意思？</td>
+          <td>PRD、领域术语、上下文文档、必要 ADR</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a></td>
+        </tr>
+        <tr>
+          <td>3. 架构与接口设计</td>
+          <td>模块边界、公共接口和测试方式应该长什么样？</td>
+          <td>接口判断、架构决策、deep module 机会</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/codebase-design.html"><code>codebase-design</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/improve-codebase-architecture.html"><code>improve-codebase-architecture</code></a></td>
+        </tr>
+        <tr>
+          <td>4. 切片与排期</td>
+          <td>怎样把工作拆成可以独立完成、独立验证的小块？</td>
+          <td>issues、triage 状态、反馈项、练习目录</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/triage.html"><code>triage</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/scaffold-exercises.html"><code>scaffold-exercises</code></a></td>
+        </tr>
+        <tr>
+          <td>5. 实现与验证</td>
+          <td>如何用最短反馈循环完成代码，并证明行为正确？</td>
+          <td>代码改动、测试、bug 复现与修复、实现记录</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/implement.html"><code>implement</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/diagnosing-bugs.html"><code>diagnosing-bugs</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/migrate-to-shoehorn.html"><code>migrate-to-shoehorn</code></a></td>
+        </tr>
+        <tr>
+          <td>6. 质量门禁</td>
+          <td>代码是否符合规范、需求和团队安全约束？</td>
+          <td>review 结论、pre-commit 配置、冲突解决、风险清单</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/review.html"><code>review</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/setup-pre-commit.html"><code>setup-pre-commit</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/git-guardrails-claude-code.html"><code>git-guardrails-claude-code</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/resolving-merge-conflicts.html"><code>resolving-merge-conflicts</code></a></td>
+        </tr>
+        <tr>
+          <td>7. 知识沉淀与交接</td>
+          <td>如何让未来的自己或下一个 agent 接得住？</td>
+          <td>handoff、文章、笔记、课程、改进后的 skills</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/handoff.html"><code>handoff</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/obsidian-vault.html"><code>obsidian-vault</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/edit-article.html"><code>edit-article</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/writing-shape.html"><code>writing-shape</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/teach.html"><code>teach</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/writing-great-skills.html"><code>writing-great-skills</code></a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>使用规则：</strong>真实项目通常会来回跳阶段。比如实现时发现概念混乱，就回到“需求与领域语言”；review 时发现设计不稳，就回到“架构与接口设计”。
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>resolving-merge-conflicts / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> resolving-merge-conflicts</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Use when you need to resolve an in-progress git merge/rebase conflict.&quot;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<ol type="1">
+<li><p><strong>See the current state</strong> of the merge/rebase. Check
+git history, and the conflicting files.</p></li>
+<li><p><strong>Find the primary sources</strong> for each conflict.
+Understand deeply why each change was made, and what the original intent
+was. Read the commit messages, check the PRs, check original
+issues/tickets.</p></li>
+<li><p><strong>Resolve each hunk.</strong> Preserve both intents where
+possible. Where incompatible, pick the one matching the merge’s stated
+goal and note the trade-off. Do <strong>not</strong> invent new
+behaviour. Always resolve; never <code>--abort</code>.</p></li>
+<li><p>Discover the project’s <strong>automated checks</strong> and run
+them — typically typecheck, then tests, then format. Fix anything the
+merge broke.</p></li>
+<li><p><strong>Finish the merge/rebase.</strong> Stage everything and
+commit. If rebasing, continue the rebase process until all commits are
+rebased.</p></li>
+</ol>
+
+</body>
+</html>

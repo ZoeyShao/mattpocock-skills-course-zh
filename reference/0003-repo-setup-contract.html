@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repo 准备契约</title>
+  <style>
+    :root { color-scheme: light; --ink: #1f2933; --muted: #5f6b7a; --line: #d8dee6; --paper: #fbfaf7; --accent: #0f766e; --panel: #fff; }
+    body { margin: 0; font-family: ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif; color: var(--ink); background: var(--paper); line-height: 1.65; }
+    main { max-width: 920px; margin: 48px auto; padding: 0 24px 64px; }
+    h1 { font-size: 2.2rem; margin: 0 0 0.2rem; letter-spacing: 0; }
+    .lede { color: var(--muted); margin: 0 0 2rem; max-width: 72ch; }
+    table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); }
+    th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    th { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); background: #f4f6f8; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--accent); }
+    .note { margin-top: 24px; padding: 16px 18px; border-left: 4px solid var(--accent); background: white; }
+    @media print { body { background: white; } main { margin: 0; max-width: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Repo 准备契约</h1>
+    <p class="lede"><a href="/mattpocock-skills-course-zh/reference/skills/setup-matt-pocock-skills.html"><code>setup-matt-pocock-skills</code></a> 的作用，是把一个 repo 里“agent 需要知道但不能瞎猜”的约定写清楚。</p>
+
+    <table>
+      <thead>
+        <tr><th>契约</th><th>回答什么问题</th><th>写到哪里</th><th>哪些 skills 会依赖</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Issue tracker</td>
+          <td>任务、PRD、QA 反馈应该发布到哪里？GitHub、GitLab、本地 markdown，还是其他系统？</td>
+          <td><code>docs/agents/issue-tracker.md</code></td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/triage.html"><code>triage</code></a></td>
+        </tr>
+        <tr>
+          <td>Triage labels</td>
+          <td>五个标准 triage 状态，在这个 repo 的 issue tracker 里实际叫什么标签？</td>
+          <td><code>docs/agents/triage-labels.md</code></td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/triage.html"><code>triage</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a></td>
+        </tr>
+        <tr>
+          <td>Domain docs</td>
+          <td>领域语言和架构决策在哪里？这是单上下文 repo，还是多上下文 repo？</td>
+          <td><code>docs/agents/domain.md</code></td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/diagnosing-bugs.html"><code>diagnosing-bugs</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/improve-codebase-architecture.html"><code>improve-codebase-architecture</code></a></td>
+        </tr>
+        <tr>
+          <td>Agent skills block</td>
+          <td>agent 进入 repo 后，应该从哪里找到这些约定？</td>
+          <td><code>CLAUDE.md</code> 或 <code>AGENTS.md</code></td>
+          <td>所有需要 repo 约定的工程类 skills</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>判断规则：</strong>如果一个 skill 会读写 issue、使用 triage 标签、依赖领域词汇或 ADR，那么在新 repo 中第一次使用它之前，先考虑是否需要跑 <a href="/mattpocock-skills-course-zh/reference/skills/setup-matt-pocock-skills.html"><code>setup-matt-pocock-skills</code></a>。
+    </div>
+
+    <h2>小词典</h2>
+    <table>
+      <thead>
+        <tr><th>术语</th><th>意思</th><th>常见结构</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>单上下文 repo</td>
+          <td>整个仓库基本共享一套领域语言和架构决策。agent 读根目录的 <code>CONTEXT.md</code> 和 <code>docs/adr/</code> 就够了。</td>
+          <td><code>/CONTEXT.md</code><br><code>/docs/adr/</code></td>
+        </tr>
+        <tr>
+          <td>多上下文 repo</td>
+          <td>一个仓库里有多个相对独立的业务或技术上下文，例如 frontend、billing、ordering。每个上下文可能有自己的领域词汇和 ADR。</td>
+          <td><code>/CONTEXT-MAP.md</code><br><code>/src/billing/CONTEXT.md</code><br><code>/src/ordering/CONTEXT.md</code></td>
+        </tr>
+        <tr>
+          <td>上下文</td>
+          <td>一组词汇、规则和设计决策共同适用的范围。它回答：“这些概念在哪个边界内成立？”</td>
+          <td>一个 app、一个 bounded context、一个 package，或 monorepo 里的一个子系统。</td>
+        </tr>
+        <tr>
+          <td>ADR</td>
+          <td>Architectural Decision Record，架构决策记录。它记录一个重要技术决定的背景、决定内容、理由和后果。领域语言回答“叫什么”，ADR 回答“为什么这样设计”。</td>
+          <td><code>/docs/adr/0001-use-postgres.md</code><br><code>/src/billing/docs/adr/0002-money-model.md</code><br>适合记录有明显取舍的决定，不适合记录随手可见的小实现细节。</td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

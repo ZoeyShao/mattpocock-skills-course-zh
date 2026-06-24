@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 0002 课：准备 Repo</title>
+  <style>
+    :root { color-scheme: light; --ink: #1f2933; --muted: #596675; --paper: #fbfaf7; --panel: #ffffff; --line: #d8dee6; --accent: #0f766e; --soft: #edf7f5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif; color: var(--ink); background: var(--paper); line-height: 1.65; }
+    main { max-width: 850px; margin: 44px auto; padding: 0 24px 64px; }
+    h1 { margin: 0 0 6px; font-size: 2.25rem; letter-spacing: 0; line-height: 1.15; }
+    h2 { margin: 32px 0 10px; font-size: 1.25rem; }
+    p { max-width: 70ch; }
+    a { color: var(--accent); }
+    code { color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    pre { background: #f4f6f8; border: 1px solid var(--line); padding: 14px; overflow-x: auto; }
+    .meta { color: var(--muted); margin: 0 0 30px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.95rem; }
+    .panel { background: var(--panel); border: 1px solid var(--line); padding: 18px 20px; margin: 18px 0; }
+    .practice { background: var(--soft); border: 1px solid #b8ddd7; padding: 18px 20px; margin-top: 18px; }
+    button { border: 1px solid var(--accent); background: white; color: var(--accent); padding: 8px 12px; font: 600 0.9rem ui-sans-serif, system-ui, sans-serif; cursor: pointer; margin-top: 8px; }
+    .answer { display: none; margin-top: 12px; color: var(--ink); border-top: 1px solid #b8ddd7; padding-top: 12px; }
+    ol, ul { padding-left: 1.4rem; }
+    @media print { body { background: white; } main { margin: 0; max-width: none; } button { display: none; } .answer { display: block; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>第 0 阶段：准备 Repo</h1>
+    <p class="meta">第 0002 课 · 工程周期第 0 阶段 · 12 分钟</p>
+
+    <p>在真实项目里，很多 skills 不是缺能力，而是缺上下文。它们不知道 issue 发到哪里，不知道 triage 标签叫什么，也不知道领域语言和架构决策在哪里。<a href="/mattpocock-skills-course-zh/reference/skills/setup-matt-pocock-skills.html"><code>setup-matt-pocock-skills</code></a> 就是用来补齐这些 repo 级约定的。</p>
+
+    <div class="panel">
+      <h2>这个 skill 解决什么问题</h2>
+      <p><a href="/mattpocock-skills-course-zh/reference/skills/setup-matt-pocock-skills.html"><code>setup-matt-pocock-skills</code></a> 会为当前 repo 搭出一份“agent 使用契约”。它通常会写四类东西：</p>
+      <ul>
+        <li><code>CLAUDE.md</code> 或 <code>AGENTS.md</code> 里的 <code>Agent skills</code> 区块。</li>
+        <li><code>docs/agents/issue-tracker.md</code>：issue 和 PRD 应该去哪里。</li>
+        <li><code>docs/agents/triage-labels.md</code>：五个标准 triage 状态对应哪些真实标签。</li>
+        <li><code>docs/agents/domain.md</code>：领域文档和 ADR 应该从哪里读。</li>
+      </ul>
+      <p>参考：<a href="../reference/0003-repo-setup-contract.html">Repo 准备契约</a>。</p>
+    </div>
+
+    <h2>为什么它排在第 0 阶段</h2>
+    <p>因为它不是项目中的一个业务步骤，而是让后面的步骤少猜。比如：</p>
+    <ul>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a> 和 <a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a> 要知道“发布到 issue tracker”到底意味着什么。</li>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/triage.html"><code>triage</code></a> 要知道“ready-for-agent”在你的 tracker 里叫什么标签。</li>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/diagnosing-bugs.html"><code>diagnosing-bugs</code></a>、<a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a>、<a href="/mattpocock-skills-course-zh/reference/skills/improve-codebase-architecture.html"><code>improve-codebase-architecture</code></a> 要知道领域词汇和 ADR 在哪里。</li>
+    </ul>
+
+    <div class="panel">
+      <h2>术语：ADR 是什么</h2>
+      <p><strong>ADR</strong> 是 Architectural Decision Record，中文可以叫“架构决策记录”。它是一篇短文，用来保存团队做过的一个重要技术或架构决定。</p>
+      <p>一个 ADR 通常回答四件事：当时的背景是什么，决定了什么，为什么这么决定，以及这个决定带来的后果。它不是“最终真理”，而是给未来的人和 agent 留下当时的判断依据。</p>
+      <p>适合写成 ADR 的问题通常带有取舍：为什么选 PostgreSQL 而不是 MongoDB，为什么订单模块使用事件溯源，为什么前端状态放在 URL 里。不适合写 ADR 的，是随手能从代码看出来的小实现细节。</p>
+      <p>领域语言回答“这些东西叫什么、边界在哪里”；ADR 回答“为什么我们决定这样设计”。agent 读 ADR 的目的，是避免无意中推翻过去的决定。如果新方案确实要推翻旧决定，也应该明确说出来，而不是悄悄绕开。</p>
+    </div>
+
+    <div class="panel">
+      <h2>它的工作流</h2>
+      <ol>
+        <li><strong>探索：</strong>查看 git remote、<code>AGENTS.md</code>/<code>CLAUDE.md</code>、<code>CONTEXT.md</code>、<code>docs/adr/</code>、<code>docs/agents/</code> 等。</li>
+        <li><strong>逐项询问：</strong>一次只问一个决定：issue tracker、triage 标签、domain docs 布局。</li>
+        <li><strong>确认草稿：</strong>先展示将要写入的区块和三个文档。</li>
+        <li><strong>写入：</strong>更新已有的 <code>CLAUDE.md</code> 或 <code>AGENTS.md</code>，并写入 <code>docs/agents/*.md</code>。</li>
+      </ol>
+    </div>
+
+    <h2>不要误用它</h2>
+    <p>它不是每次开工都要跑。它适合在新 repo 第一次使用工程类 skills 前运行，或者当这些 skills 明显不知道 issue tracker、标签或领域文档位置时运行。</p>
+
+    <div class="practice">
+      <h2>回忆练习</h2>
+      <p>判断是否需要先用 <a href="/mattpocock-skills-course-zh/reference/skills/setup-matt-pocock-skills.html"><code>setup-matt-pocock-skills</code></a>。</p>
+
+      <p><strong>1.</strong>“这个 repo 没有 <code>AGENTS.md</code>，我们要用 <a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a> 把 PRD 发成 GitHub issues。”</p>
+      <button onclick="toggle('a1')">揭晓答案</button>
+      <p id="a1" class="answer">需要。<a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a> 要知道 issue tracker 是 GitHub，并且需要 repo 里的 agent 约定入口。</p>
+
+      <p><strong>2.</strong>“repo 已经有 <code>docs/agents/issue-tracker.md</code> 和 <code>triage-labels.md</code>，现在只是修一个小 bug。”</p>
+      <button onclick="toggle('a2')">揭晓答案</button>
+      <p id="a2" class="answer">通常不需要。直接进入 <a href="/mattpocock-skills-course-zh/reference/skills/diagnosing-bugs.html"><code>diagnosing-bugs</code></a> 或普通修复流程即可；除非现有约定明显过期。</p>
+
+      <p><strong>3.</strong>“团队把 issues 从 GitHub 迁到了 Linear，但 docs/agents 还是旧内容。”</p>
+      <button onclick="toggle('a3')">揭晓答案</button>
+      <p id="a3" class="answer">需要。issue tracker 约定变了，应重新更新 <code>docs/agents/issue-tracker.md</code>，否则后续 skills 会写错地方。</p>
+    </div>
+
+    <h2>主要来源</h2>
+    <p>本课基于 <a href="/mattpocock-skills-course-zh/reference/skills/setup-matt-pocock-skills.html"><code>setup-matt-pocock-skills</code></a> 的 <code>SKILL.md</code>，以及它附带的 issue tracker、triage labels 和 domain docs 模板。该 skill 属于上游非 deprecated 清单。</p>
+
+    <h2>继续学习</h2>
+    <p><a href="/mattpocock-skills-course-zh/lessons/index.html">回到课程目录</a> · 下一课：<a href="/mattpocock-skills-course-zh/lessons/0003-stage-one-discovery-and-clarity.html">第 0003 课：发现与澄清</a>。遇到不清楚的术语，可以直接在页面上选中提问。</p>
+  </main>
+
+  <script>
+    function toggle(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>

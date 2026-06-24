@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>migrate-to-shoehorn / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> migrate-to-shoehorn</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Migrate test files from `as` type assertions to @total-typescript/shoehorn. Use when user mentions shoehorn, wants to replace `as` in tests, or needs partial test data.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<h1 id="migrate-to-shoehorn">Migrate to Shoehorn</h1>
+<h2 id="why-shoehorn">Why shoehorn?</h2>
+<p><code>shoehorn</code> lets you pass partial data in tests while
+keeping TypeScript happy. It replaces <code>as</code> assertions with
+type-safe alternatives.</p>
+<p><strong>Test code only.</strong> Never use shoehorn in production
+code.</p>
+<p>Problems with <code>as</code> in tests:</p>
+<ul>
+<li>Trained not to use it</li>
+<li>Must manually specify target type</li>
+<li>Double-as (<code>as unknown as Type</code>) for intentionally wrong
+data</li>
+</ul>
+<h2 id="install">Install</h2>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> i @total-typescript/shoehorn</span></code></pre></div>
+<h2 id="migration-patterns">Migration patterns</h2>
+<h3 id="large-objects-with-few-needed-properties">Large objects with few
+needed properties</h3>
+<p>Before:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">type</span> Request <span class="op">=</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  body<span class="op">:</span> { id<span class="op">:</span> <span class="dt">string</span> }<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  headers<span class="op">:</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">string</span><span class="op">&gt;;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  cookies<span class="op">:</span> <span class="bu">Record</span><span class="op">&lt;</span><span class="dt">string</span><span class="op">,</span> <span class="dt">string</span><span class="op">&gt;;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...20 more properties</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">it</span>(<span class="st">&quot;gets user by id&quot;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Only care about body.id but must fake entire Request</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getUser</span>({</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    body<span class="op">:</span> { id<span class="op">:</span> <span class="st">&quot;123&quot;</span> }<span class="op">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    headers<span class="op">:</span> {}<span class="op">,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    cookies<span class="op">:</span> {}<span class="op">,</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">// ...fake all 20 properties</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<p>After:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { fromPartial } <span class="im">from</span> <span class="st">&quot;@total-typescript/shoehorn&quot;</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">it</span>(<span class="st">&quot;gets user by id&quot;</span><span class="op">,</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getUser</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fromPartial</span>({</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      body<span class="op">:</span> { id<span class="op">:</span> <span class="st">&quot;123&quot;</span> }<span class="op">,</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+<h3 id="as-type-frompartial"><code>as Type</code> →
+<code>fromPartial()</code></h3>
+<p>Before:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getUser</span>({ body<span class="op">:</span> { id<span class="op">:</span> <span class="st">&quot;123&quot;</span> } } <span class="im">as</span> Request)<span class="op">;</span></span></code></pre></div>
+<p>After:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { fromPartial } <span class="im">from</span> <span class="st">&quot;@total-typescript/shoehorn&quot;</span><span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">getUser</span>(<span class="fu">fromPartial</span>({ body<span class="op">:</span> { id<span class="op">:</span> <span class="st">&quot;123&quot;</span> } }))<span class="op">;</span></span></code></pre></div>
+<h3 id="as-unknown-as-type-fromany"><code>as unknown as Type</code> →
+<code>fromAny()</code></h3>
+<p>Before:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getUser</span>({ body<span class="op">:</span> { id<span class="op">:</span> <span class="dv">123</span> } } <span class="im">as</span> <span class="dt">unknown</span> <span class="im">as</span> Request)<span class="op">;</span> <span class="co">// wrong type on purpose</span></span></code></pre></div>
+<p>After:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode ts"><code class="sourceCode typescript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { fromAny } <span class="im">from</span> <span class="st">&quot;@total-typescript/shoehorn&quot;</span><span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">getUser</span>(<span class="fu">fromAny</span>({ body<span class="op">:</span> { id<span class="op">:</span> <span class="dv">123</span> } }))<span class="op">;</span></span></code></pre></div>
+<h2 id="when-to-use-each">When to use each</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fromPartial()</code></td>
+<td>Pass partial data that still type-checks</td>
+</tr>
+<tr>
+<td><code>fromAny()</code></td>
+<td>Pass intentionally wrong data (keeps autocomplete)</td>
+</tr>
+<tr>
+<td><code>fromExact()</code></td>
+<td>Force full object (swap with fromPartial later)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="workflow">Workflow</h2>
+<ol type="1">
+<li><strong>Gather requirements</strong> - ask user:
+<ul>
+<li>What test files have <code>as</code> assertions causing
+problems?</li>
+<li>Are they dealing with large objects where only some properties
+matter?</li>
+<li>Do they need to pass intentionally wrong data for error
+testing?</li>
+</ul></li>
+<li><strong>Install and migrate</strong>:
+<ul class="task-list">
+<li><label><input type="checkbox" />Install:
+<code>npm i @total-typescript/shoehorn</code></label></li>
+<li><label><input type="checkbox" />Find test files with <code>as</code>
+assertions:
+<code>grep -r " as [A-Z]" --include="*.test.ts" --include="*.spec.ts"</code></label></li>
+<li><label><input type="checkbox" />Replace <code>as Type</code> with
+<code>fromPartial()</code></label></li>
+<li><label><input type="checkbox" />Replace
+<code>as unknown as Type</code> with <code>fromAny()</code></label></li>
+<li><label><input type="checkbox" />Add imports from
+<code>@total-typescript/shoehorn</code></label></li>
+<li><label><input type="checkbox" />Run type check to
+verify</label></li>
+</ul></li>
+</ol>
+
+</body>
+</html>

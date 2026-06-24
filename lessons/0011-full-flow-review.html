@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 0011 课：完整工程 Flow 复盘</title>
+  <style>
+    :root { --ink:#1f2933; --muted:#596675; --paper:#fbfaf7; --panel:#fff; --line:#d8dee6; --accent:#0f766e; --soft:#edf7f5; }
+    body { margin:0; font-family:ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", serif; color:var(--ink); background:var(--paper); line-height:1.65; }
+    main { max-width:860px; margin:44px auto; padding:0 24px 64px; }
+    h1 { margin:0 0 6px; font-size:2.25rem; letter-spacing:0; line-height:1.15; }
+    h2 { margin:32px 0 10px; font-size:1.25rem; }
+    p { max-width:70ch; } a { color:var(--accent); } code { color:var(--accent); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .meta { color:var(--muted); margin:0 0 30px; font-family:ui-sans-serif, system-ui, sans-serif; font-size:.95rem; }
+    .panel { background:var(--panel); border:1px solid var(--line); padding:18px 20px; margin:18px 0; }
+    .practice { background:var(--soft); border:1px solid #b8ddd7; padding:18px 20px; margin-top:18px; }
+    button { border:1px solid var(--accent); background:white; color:var(--accent); padding:8px 12px; font:600 .9rem ui-sans-serif, system-ui, sans-serif; cursor:pointer; }
+    .answer { display:none; margin-top:12px; border-top:1px solid #b8ddd7; padding-top:12px; }
+    ul, ol { padding-left:1.4rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>完整工程 Flow 复盘</h1>
+    <p class="meta">第 0011 课 · 总复盘 · 12 分钟</p>
+    <p>你现在可以把这套 skills 看成一个工程系统，而不是一堆命令。</p>
+
+    <div class="panel">
+      <h2>主 flow：idea → ship</h2>
+      <ol>
+        <li><a href="/mattpocock-skills-course-zh/reference/skills/setup-matt-pocock-skills.html"><code>setup-matt-pocock-skills</code></a>：准备 repo 约定。</li>
+        <li><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> / <a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a> / <a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a>：澄清未知数。</li>
+        <li><a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a> + <a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a>：写需求并稳定语言。</li>
+        <li><a href="/mattpocock-skills-course-zh/reference/skills/codebase-design.html"><code>codebase-design</code></a> / <a href="/mattpocock-skills-course-zh/reference/skills/improve-codebase-architecture.html"><code>improve-codebase-architecture</code></a>：定接口、seam 和 deepening 方向。</li>
+        <li><a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a>：拆成纵向切片。</li>
+        <li><a href="/mattpocock-skills-course-zh/reference/skills/implement.html"><code>implement</code></a> / <a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a> / <a href="/mattpocock-skills-course-zh/reference/skills/diagnosing-bugs.html"><code>diagnosing-bugs</code></a>：实现和修复。</li>
+        <li><a href="/mattpocock-skills-course-zh/reference/skills/review.html"><code>review</code></a>：按 spec 和 standards 两轴检查。</li>
+        <li><a href="/mattpocock-skills-course-zh/reference/skills/handoff.html"><code>handoff</code></a> / writing / <a href="/mattpocock-skills-course-zh/reference/skills/writing-great-skills.html"><code>writing-great-skills</code></a>：沉淀和交接。</li>
+      </ol>
+    </div>
+
+    <h2>两个 on-ramp</h2>
+    <p>如果起点是“已有 issue 堆积”，从 <a href="/mattpocock-skills-course-zh/reference/skills/triage.html"><code>triage</code></a> 进入；如果起点是“代码库健康维护”，从 <a href="/mattpocock-skills-course-zh/reference/skills/improve-codebase-architecture.html"><code>improve-codebase-architecture</code></a> 进入。它们都会回到主 flow。</p>
+
+    <h2>什么时候问 ask-matt</h2>
+    <p><a href="/mattpocock-skills-course-zh/reference/skills/ask-matt.html"><code>ask-matt</code></a> 是路由器。当你不确定该从哪条流开始，或者忘了哪个 skill 对应哪个阶段，就问它。</p>
+
+    <div class="practice">
+      <h2>最终小测</h2>
+      <p>“我们有一个想法，已经问清楚，也写了 PRD，现在要让多个 agent 并行实现。”下一步？</p>
+      <button onclick="toggle('a1')">揭晓</button>
+      <p id="a1" class="answer"><a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a>。把 PRD 拆成可独立验证的纵向切片，然后每个 issue 用新的实现会话处理。</p>
+    </div>
+
+    <p>参考：<a href="../reference/0005-full-project-skill-playbook.html">完整项目 Skill Playbook</a>。</p>
+    <h2>继续学习</h2>
+    <p><a href="/mattpocock-skills-course-zh/lessons/index.html">回到课程目录</a> · <a href="/mattpocock-skills-course-zh/reference/skills/index-zh.html">打开 Skill 中文阅读目录</a>。遇到不清楚的术语，可以直接在页面上选中提问。</p>
+  </main>
+  <script>function toggle(id){const e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block';}</script>
+</body>
+</html>

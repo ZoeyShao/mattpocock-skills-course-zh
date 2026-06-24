@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>prototype / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> prototype</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Build a throwaway prototype to flesh out a design before committing to it. Routes between two branches — a runnable terminal app for state/business-logic questions, or several radically different UI variations toggleable from one route. Use when the user wants to prototype, sanity-check a data model or state machine, mock up a UI, explore design options, or says &quot;prototype this&quot;, &quot;let me play with it&quot;, &quot;try a few designs&quot;.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<h1 id="prototype">Prototype</h1>
+<p>A prototype is <strong>throwaway code that answers a
+question</strong>. The question decides the shape.</p>
+<h2 id="pick-a-branch">Pick a branch</h2>
+<p>Identify which question is being answered — from the user’s prompt,
+the surrounding code, or by asking if the user is around:</p>
+<ul>
+<li><strong>“Does this logic / state model feel right?”</strong> → <a
+href="LOGIC.md">LOGIC.md</a>. Build a tiny interactive terminal app that
+pushes the state machine through cases that are hard to reason about on
+paper.</li>
+<li><strong>“What should this look like?”</strong> → <a
+href="UI.md">UI.md</a>. Generate several radically different UI
+variations on a single route, switchable via a URL search param and a
+floating bottom bar.</li>
+</ul>
+<p>The two branches produce very different artifacts — getting this
+wrong wastes the whole prototype. If the question is genuinely ambiguous
+and the user isn’t reachable, default to whichever branch better matches
+the surrounding code (a backend module → logic; a page or component →
+UI) and state the assumption at the top of the prototype.</p>
+<h2 id="rules-that-apply-to-both">Rules that apply to both</h2>
+<ol type="1">
+<li><strong>Throwaway from day one, and clearly marked as such.</strong>
+Locate the prototype code close to where it will actually be used (next
+to the module or page it’s prototyping for) so context is obvious — but
+name it so a casual reader can see it’s a prototype, not production. For
+throwaway UI routes, obey whatever routing convention the project
+already uses; don’t invent a new top-level structure.</li>
+<li><strong>One command to run.</strong> Whatever the project’s existing
+task runner supports — <code>pnpm &lt;name&gt;</code>,
+<code>python &lt;path&gt;</code>, <code>bun &lt;path&gt;</code>, etc.
+The user must be able to start it without thinking.</li>
+<li><strong>No persistence by default.</strong> State lives in memory.
+Persistence is the thing the prototype is <em>checking</em>, not
+something it should depend on. If the question explicitly involves a
+database, hit a scratch DB or a local file with a clear “PROTOTYPE —
+wipe me” name.</li>
+<li><strong>Skip the polish.</strong> No tests, no error handling beyond
+what makes the prototype <em>runnable</em>, no abstractions. The point
+is to learn something fast and then delete it.</li>
+<li><strong>Surface the state.</strong> After every action (logic) or on
+every variant switch (UI), print or render the full relevant state so
+the user can see what changed.</li>
+<li><strong>Delete or absorb when done.</strong> When the prototype has
+answered its question, either delete it or fold the validated decision
+into the real code — don’t leave it rotting in the repo.</li>
+</ol>
+<h2 id="when-done">When done</h2>
+<p>The <em>answer</em> is the only thing worth keeping from a prototype.
+Capture it somewhere durable (commit message, ADR, issue, or a
+<code>NOTES.md</code> next to the prototype) along with the question it
+was answering. If the user is around, that capture is a quick
+conversation; if not, leave the placeholder so they (or you, on the next
+pass) can fill in the verdict before deleting the prototype.</p>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>完整项目 Skill Playbook</title>
+  <style>
+    :root { --ink:#1f2933; --muted:#5f6b7a; --line:#d8dee6; --paper:#fbfaf7; --accent:#0f766e; --panel:#fff; }
+    body { margin:0; font-family:ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif; color:var(--ink); background:var(--paper); line-height:1.65; }
+    main { max-width:980px; margin:48px auto; padding:0 24px 64px; }
+    h1 { font-size:2.2rem; margin:0 0 .2rem; letter-spacing:0; }
+    h2 { margin:34px 0 10px; font-size:1.25rem; }
+    .lede { color:var(--muted); max-width:72ch; margin:0 0 2rem; }
+    table { width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); margin:14px 0 26px; }
+    th, td { text-align:left; vertical-align:top; padding:12px 14px; border-bottom:1px solid var(--line); }
+    th { font-family:ui-sans-serif, system-ui, sans-serif; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); background:#f4f6f8; }
+    code { font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:var(--accent); }
+    .note { margin-top:24px; padding:16px 18px; border-left:4px solid var(--accent); background:white; }
+    @media print { body { background:white; } main { margin:0; max-width:none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>完整项目 Skill Playbook</h1>
+    <p class="lede">这张表把后续课程压缩成一个可执行路线：每个阶段先看产物，再选 skill。</p>
+
+    <table>
+      <thead><tr><th>阶段</th><th>什么时候进入</th><th>主要 skills</th><th>完成信号</th></tr></thead>
+      <tbody>
+        <tr><td>发现追问</td><td>想法松散，有未知数。</td><td><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/handoff.html"><code>handoff</code></a></td><td>关键未知数被回答，或被拆成 Research/Prototype/Discuss 票据。</td></tr>
+        <tr><td>需求与领域语言</td><td>方向清楚，需要写成可验收需求。</td><td><a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a></td><td>PRD、领域术语、必要 ADR 就位。</td></tr>
+        <tr><td>架构与接口</td><td>要决定模块形状、测试 seam 或重构方向。</td><td><a href="/mattpocock-skills-course-zh/reference/skills/codebase-design.html"><code>codebase-design</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/improve-codebase-architecture.html"><code>improve-codebase-architecture</code></a></td><td>接口判断、deepening 候选或架构方向清楚。</td></tr>
+        <tr><td>切片与排期</td><td>PRD 或计划要变成可执行任务。</td><td><a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/triage.html"><code>triage</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/scaffold-exercises.html"><code>scaffold-exercises</code></a></td><td>每个 issue 都是可验证的纵向切片，状态标签正确。</td></tr>
+        <tr><td>实现与诊断</td><td>开始写代码、修 bug 或迁移测试。</td><td><a href="/mattpocock-skills-course-zh/reference/skills/implement.html"><code>implement</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/diagnosing-bugs.html"><code>diagnosing-bugs</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/migrate-to-shoehorn.html"><code>migrate-to-shoehorn</code></a></td><td>代码完成、测试通过、bug 有回归保护。</td></tr>
+        <tr><td>质量门禁</td><td>准备合并、提交或保护 repo。</td><td><a href="/mattpocock-skills-course-zh/reference/skills/review.html"><code>review</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/setup-pre-commit.html"><code>setup-pre-commit</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/git-guardrails-claude-code.html"><code>git-guardrails-claude-code</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/resolving-merge-conflicts.html"><code>resolving-merge-conflicts</code></a></td><td>diff 过 review，自动检查或安全钩子到位。</td></tr>
+        <tr><td>沉淀交接</td><td>上下文太长、要换 agent、要写文章或沉淀流程。</td><td><a href="/mattpocock-skills-course-zh/reference/skills/handoff.html"><code>handoff</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/obsidian-vault.html"><code>obsidian-vault</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/teach.html"><code>teach</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/writing-great-skills.html"><code>writing-great-skills</code></a>, <code>writing-*</code></td><td>下一位 agent 或未来的你能接住，不需要重新考古。</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>总规则：</strong>不要问“我想用哪个 skill”。先问“当前阶段的下一份耐久产物是什么”。产物决定 skill。
+    </div>
+  </main>
+</body>
+</html>

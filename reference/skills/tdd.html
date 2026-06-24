@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tdd / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> tdd</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions &quot;red-green-refactor&quot;, wants integration tests, or asks for test-first development.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<h1 id="test-driven-development">Test-Driven Development</h1>
+<h2 id="philosophy">Philosophy</h2>
+<p><strong>Core principle</strong>: Tests should verify behavior through
+public interfaces, not implementation details. Code can change entirely;
+tests shouldn’t.</p>
+<p><strong>Good tests</strong> are integration-style: they exercise real
+code paths through public APIs. They describe <em>what</em> the system
+does, not <em>how</em> it does it. A good test reads like a
+specification - “user can checkout with valid cart” tells you exactly
+what capability exists. These tests survive refactors because they don’t
+care about internal structure.</p>
+<p><strong>Bad tests</strong> are coupled to implementation. They mock
+internal collaborators, test private methods, or verify through external
+means (like querying a database directly instead of using the
+interface). The warning sign: your test breaks when you refactor, but
+behavior hasn’t changed. If you rename an internal function and tests
+fail, those tests were testing implementation, not behavior.</p>
+<p>See <a href="tests.md">tests.md</a> for examples and <a
+href="mocking.md">mocking.md</a> for mocking guidelines.</p>
+<h2 id="anti-pattern-horizontal-slices">Anti-Pattern: Horizontal
+Slices</h2>
+<p><strong>DO NOT write all tests first, then all
+implementation.</strong> This is “horizontal slicing” - treating RED as
+“write all tests” and GREEN as “write all code.”</p>
+<p>This produces <strong>crap tests</strong>:</p>
+<ul>
+<li>Tests written in bulk test <em>imagined</em> behavior, not
+<em>actual</em> behavior</li>
+<li>You end up testing the <em>shape</em> of things (data structures,
+function signatures) rather than user-facing behavior</li>
+<li>Tests become insensitive to real changes - they pass when behavior
+breaks, fail when behavior is fine</li>
+<li>You outrun your headlights, committing to test structure before
+understanding the implementation</li>
+</ul>
+<p><strong>Correct approach</strong>: Vertical slices via tracer
+bullets. One test → one implementation → repeat. Each test responds to
+what you learned from the previous cycle. Because you just wrote the
+code, you know exactly what behavior matters and how to verify it.</p>
+<pre><code>WRONG (horizontal):
+  RED:   test1, test2, test3, test4, test5
+  GREEN: impl1, impl2, impl3, impl4, impl5
+
+RIGHT (vertical):
+  RED→GREEN: test1→impl1
+  RED→GREEN: test2→impl2
+  RED→GREEN: test3→impl3
+  ...</code></pre>
+<h2 id="workflow">Workflow</h2>
+<h3 id="planning">1. Planning</h3>
+<p>When exploring the codebase, use the project’s domain glossary so
+that test names and interface vocabulary match the project’s language,
+and respect ADRs in the area you’re touching.</p>
+<p>Before writing any code:</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Confirm with user what interface
+changes are needed</label></li>
+<li><label><input type="checkbox" />Confirm with user which behaviors to
+test (prioritize)</label></li>
+<li><label><input type="checkbox" />Identify opportunities for <a
+href="deep-modules.md">deep modules</a> (small interface, deep
+implementation)</label></li>
+<li><label><input type="checkbox" />Design interfaces for <a
+href="interface-design.md">testability</a></label></li>
+<li><label><input type="checkbox" />List the behaviors to test (not
+implementation steps)</label></li>
+<li><label><input type="checkbox" />Get user approval on the
+plan</label></li>
+</ul>
+<p>Ask: “What should the public interface look like? Which behaviors are
+most important to test?”</p>
+<p><strong>You can’t test everything.</strong> Confirm with the user
+exactly which behaviors matter most. Focus testing effort on critical
+paths and complex logic, not every possible edge case.</p>
+<h3 id="tracer-bullet">2. Tracer Bullet</h3>
+<p>Write ONE test that confirms ONE thing about the system:</p>
+<pre><code>RED:   Write test for first behavior → test fails
+GREEN: Write minimal code to pass → test passes</code></pre>
+<p>This is your tracer bullet - proves the path works end-to-end.</p>
+<h3 id="incremental-loop">3. Incremental Loop</h3>
+<p>For each remaining behavior:</p>
+<pre><code>RED:   Write next test → fails
+GREEN: Minimal code to pass → passes</code></pre>
+<p>Rules:</p>
+<ul>
+<li>One test at a time</li>
+<li>Only enough code to pass current test</li>
+<li>Don’t anticipate future tests</li>
+<li>Keep tests focused on observable behavior</li>
+</ul>
+<h3 id="refactor">4. Refactor</h3>
+<p>After all tests pass, look for <a href="refactoring.md">refactor
+candidates</a>:</p>
+<ul class="task-list">
+<li><label><input type="checkbox" />Extract duplication</label></li>
+<li><label><input type="checkbox" />Deepen modules (move complexity
+behind simple interfaces)</label></li>
+<li><label><input type="checkbox" />Apply SOLID principles where
+natural</label></li>
+<li><label><input type="checkbox" />Consider what new code reveals about
+existing code</label></li>
+<li><label><input type="checkbox" />Run tests after each refactor
+step</label></li>
+</ul>
+<p><strong>Never refactor while RED.</strong> Get to GREEN first.</p>
+<h2 id="checklist-per-cycle">Checklist Per Cycle</h2>
+<pre><code>[ ] Test describes behavior, not implementation
+[ ] Test uses public interface only
+[ ] Test would survive internal refactor
+[ ] Code is minimal for this test
+[ ] No speculative features added</code></pre>
+
+</body>
+</html>

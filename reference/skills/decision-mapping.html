@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>decision-mapping / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> decision-mapping</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Turn a loose idea into a sequenced map of investigation tickets, then drive them to resolution one at a time.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">disable-model-invocation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p>This skill is invoked when a loose idea requires more than one agent
+session to turn into a plan. It creates a stateful decision map in a
+markdown file, and drives the user through a sequence of tickets to
+resolve the open questions - which may require either prototyping,
+research or discussion.</p>
+<h2 id="the-decision-map">The Decision Map</h2>
+<p>The decision map is a single compact Markdown file, one per planning
+effort, git-tracked alongside the project. It is the canonical artifact
+— the <strong>whole map is loaded as context into every
+session</strong>, so it must stay compact.</p>
+<p>Assets created during tickets should be linked to from the map, not
+duplicated within it.</p>
+<h3 id="structure">Structure</h3>
+<p>Numbered entries (“tickets”), each its own section keyed by its
+number:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## #1: Relational Or Non-Relational Database?</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Blocked by: #<span class="dt">&lt;</span><span class="kw">ticket-number</span><span class="dt">&gt;</span>, #<span class="dt">&lt;</span><span class="kw">ticket-number</span><span class="dt">&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Type: Research | Prototype | Discuss</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">### Question</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">question-here</span><span class="dt">&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">### Answer</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">answer-here</span><span class="dt">&gt;</span></span></code></pre></div>
+<p>Each ticket must be sized to one 100K token agent session.</p>
+<h2 id="ticket-types">Ticket Types</h2>
+<p>There are three types of tickets:</p>
+<ul>
+<li><strong>Research</strong>: Reading documentation, third-party API’s,
+or local resources like knowledge bases. Creates a markdown summary as
+an asset. Use this when knowledge outside the current working directory
+is required.</li>
+<li><strong>Prototype</strong>: Writing UI or logic code to test a
+hypothesis, or to explore a design space. Uses the /prototype skill.
+Creates a prototype as an asset. Use this when “how should it look” or
+“how should it behave” is the key question.</li>
+<li><strong>Discuss</strong>: Conversation with the agent. Uses the
+/grilling and /domain-modelling skills. The default case.</li>
+</ul>
+<h2 id="fog-of-war">Fog of war</h2>
+<p>The map is <em>deliberately</em> incomplete beyond the frontier. Your
+job is to investigate the frontier, and to resolve tickets in order to
+push the frontier forward. Push back the fog of war, one node at a
+time.</p>
+<p>At some point, the fog of war should have been pushed back far enough
+that the path to the finish line is clear. At that point, no more
+tickets will be required and the decision map can be considered
+‘done’.</p>
+<h2 id="invocation">Invocation</h2>
+<p>There are two ways this skill can be invoked:
+<strong>bootstrap</strong> and <strong>resume</strong>.</p>
+<h3 id="bootstrap">Bootstrap</h3>
+<p>User invokes with a loose idea.</p>
+<ol type="1">
+<li>Run a /grilling and /domain-modelling session to surface the open
+decisions.</li>
+<li>Write a new decision map — mostly fog, frontier identified,
+trivially-decidable entries resolved inline.</li>
+<li>Stop. Map-building is one session’s work; do not also resolve
+tickets.</li>
+</ol>
+<h3 id="resume">Resume</h3>
+<p>User invokes with a path to an existing map and a ticket number.</p>
+<ol type="1">
+<li>Load the <strong>whole map</strong> as context.</li>
+<li>Run a session to resolve the ticket, invoking skills as needed. If
+in doubt, use <code>/grilling</code> and
+<code>/domain-modelling</code>.</li>
+<li>Record what the session resolved in the ticket’s body.</li>
+<li>Add newly-discovered tickets (with correct <code>blocked_by</code>
+edges).</li>
+<li>Stop.</li>
+</ol>
+<p>If the decisions made invalidate other parts of the map, update or
+delete those nodes.</p>
+<h2 id="parallelism">Parallelism</h2>
+<p>The user may choose to run tickets in parallel, so expect other
+agents to make changes to the map.</p>
+<h2 id="skipping-the-decision-map">Skipping The Decision Map</h2>
+<p>Many times, the initial grilling will result in no fog of war. No
+unresolved tickets. Nothing to do, except implement.</p>
+<p>In those situations, you should offer the user the chance to skip the
+decision map - since the decision map is only needed if multi-session
+decisions need to be made.</p>
+<p>If they skip it, you should recommend either implementing directly or
+using <code>/to-prd</code> to schedule a multi-session
+implementation.</p>
+
+</body>
+</html>

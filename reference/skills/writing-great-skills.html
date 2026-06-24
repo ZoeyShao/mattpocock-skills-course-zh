@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>writing-great-skills / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> writing-great-skills</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Reference for writing and editing skills well — the vocabulary and principles that make a skill predictable.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">disable-model-invocation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<p>A skill exists to wrangle determinism out of a stochastic system.
+<strong>Predictability</strong> — the agent taking the same
+<em>process</em> every run, not producing the same output — is the root
+virtue; every lever below serves it.</p>
+<p><strong>Bold terms</strong> are defined in <a
+href="GLOSSARY.md"><code>GLOSSARY.md</code></a>; look them up there for
+the full meaning.</p>
+<h2 id="invocation">Invocation</h2>
+<p>Two choices, trading different costs:</p>
+<ul>
+<li>A <strong>model-invoked</strong> skill keeps a
+<strong>description</strong>, so the agent can fire it autonomously
+<em>and</em> other skills can reach it (you can still type its name
+too). It contributes to <strong>context load</strong> — the description
+sits in the window every turn. Mechanics: omit
+<code>disable-model-invocation</code>, and write a model-facing
+description with rich trigger phrasing (“Use when the user wants…,
+mentions…”).</li>
+<li>A <strong>user-invoked</strong> skill strips the description from
+the agent’s reach: only you, typing its name, can invoke it — and no
+other skill can. Zero context load, but it spends <strong>cognitive
+load</strong>: <em>you</em> are the index that must remember it exists.
+Mechanics: set <code>disable-model-invocation: true</code>; the
+<code>description</code> becomes human-facing — a one-line summary,
+trigger lists stripped.</li>
+</ul>
+<p>Pick model-invocation only when the agent must reach the skill on its
+own, or another skill must. If it only ever fires by hand, make it
+user-invoked and pay no context load.</p>
+<p>When user-invoked skills multiply past what you can remember, that
+piled-up cognitive load is cured by a <strong>router skill</strong>: one
+user-invoked skill that names the others and when to reach for each.</p>
+<h2 id="writing-the-description">Writing the description</h2>
+<p>A model-invoked <strong>description</strong> does two jobs — state
+what the skill is, and list the <strong>branches</strong> that should
+trigger it. Every word increases <strong>context load</strong>, so a
+description earns even harder pruning than the body:</p>
+<ul>
+<li><strong>Front-load the skill’s leading word</strong> — the
+description is where it does its invocation work.</li>
+<li><strong>One trigger per branch.</strong> Synonyms that rename a
+single branch are <strong>duplication</strong> — “build features using
+TDD … asks for test-first development” is one branch written twice.
+Collapse them; keep only genuinely distinct branches.</li>
+<li><strong>Cut identity that’s already in the body.</strong> Keep the
+description to triggers, plus any “when another skill needs…” reach
+clause.</li>
+</ul>
+<h2 id="information-hierarchy">Information hierarchy</h2>
+<p>A skill is built from two content types — <strong>steps</strong> and
+<strong>reference</strong> — that mix freely: a skill can be all steps,
+all reference, or both. The core decision is which to use and where each
+sits on the <strong>information hierarchy</strong>, a ladder ranked by
+how immediately the agent needs the material:</p>
+<ol type="1">
+<li><strong>In-skill step</strong> — an ordered action in
+<code>SKILL.md</code>, the primary tier: what the agent does, in order.
+Each step ends on a <strong>completion criterion</strong>, the condition
+that tells the agent the work is done. Make it <em>checkable</em> (can
+the agent tell done from not-done?) and, where it matters,
+<em>exhaustive</em> (“every modified model accounted for”, not “produce
+a change list”) — a vague criterion invites <strong>premature
+completion</strong>.</li>
+<li><strong>In-skill reference</strong> — a definition, rule, or fact in
+<code>SKILL.md</code>, consulted on demand. Often a legitimately flat
+peer-set (every rule of a review on one rung) — a fine arrangement, not
+a smell. <em>This skill is all reference.</em></li>
+<li><strong>External reference</strong> — reference pushed out of
+<code>SKILL.md</code> into a separate file, reached by a <strong>context
+pointer</strong>, loaded only when the pointer fires. (Spans
+<em>disclosed</em> reference — a sibling file like
+<code>GLOSSARY.md</code>, still part of the skill — through fully
+<strong>external reference</strong> that lives outside the skill system
+and any skill can point at.)</li>
+</ol>
+<p>A demanding completion criterion drives thorough
+<strong>legwork</strong> — the digging the agent does within the work —
+whether the skill has steps or not, since “every rule applied” binds
+flat reference just as “every step done” binds a sequence.</p>
+<p>Push too little down and the top bloats; push too much and you hide
+material the agent actually needs. That tension is the whole
+decision.</p>
+<p><strong>Progressive disclosure</strong> is the move down the ladder —
+out of <code>SKILL.md</code> into a linked file — so the top stays
+legible. Mechanics: a linked <code>.md</code> file in the skill folder,
+named for what it holds (this skill discloses its full definitions to
+<code>GLOSSARY.md</code>). Some skills are used in more than one way,
+and each distinct way is a <strong>branch</strong> — different runs
+taking different paths through the skill. Branching is the cleanest
+disclosure test: inline what every branch needs, and push behind a
+pointer what only some branches reach. A <strong>context
+pointer</strong>’s <em>wording</em>, not its target, decides when and
+how reliably the agent reaches the material.</p>
+<p>Where the ladder decides <em>how far down</em> a piece sits,
+<strong>co-location</strong> decides <em>what sits beside it</em> once
+there: keep a concept’s definition, rules, and caveats under one heading
+rather than scattered, so reading one part brings its neighbours with
+it.</p>
+<h2 id="when-to-split">When to split</h2>
+<p><strong>Granularity</strong> is how finely you divide skills, and
+each cut spends one of the two loads, so split only when the cut earns
+it. Two cuts:</p>
+<ul>
+<li><strong>By invocation</strong> — split off a
+<strong>model-invoked</strong> skill when you have a distinct
+<strong>leading word</strong> that should trigger it on its own, or
+another skill must reach it. You pay <strong>context load</strong> for
+the new always-loaded <strong>description</strong>, so that independent
+reach has to be worth it.</li>
+<li><strong>By sequence</strong> — split a run of <strong>steps</strong>
+when the steps still ahead (a step’s <strong>post-completion
+steps</strong>) tempt the agent to rush the one in front of it
+(<strong>premature completion</strong>). Keeping them out of view
+encourages the agent to do more <strong>legwork</strong> on the current
+task.</li>
+</ul>
+<h2 id="pruning">Pruning</h2>
+<p>Keep each meaning in a <strong>single source of truth</strong>: one
+authoritative place, so changing the behaviour is a one-place edit.</p>
+<p>Check every line for <strong>relevance</strong>: does it still bear
+on what the skill does?</p>
+<p>Then hunt <strong>no-ops</strong> sentence by sentence, not just line
+by line: run the no-op test on each sentence in isolation, and when one
+fails, delete the whole sentence rather than trim words from it. Be
+aggressive — most prose that fails should go, not be rewritten.</p>
+<h2 id="leading-words">Leading words</h2>
+<p>A <strong>leading word</strong> is a compact concept already living
+in the model’s pretraining that the agent thinks with while running the
+skill (e.g. <em>lesson</em>, <em>fog of war</em>, <em>tracer
+bullets</em>). Repeated throughout the text (though not necessarily - a
+strong leading word might only be needed once), it accumulates a
+distributed definition and anchors a whole region of behaviour in the
+fewest tokens, by recruiting priors the model already holds.</p>
+<p>It serves predictability twice. In the body it anchors
+<em>execution</em>: the agent reaches for the same behaviour every time
+the word appears. In the description it anchors <em>invocation</em>:
+when the same word lives in your prompts, docs, and code, the agent
+links that shared language to the skill and fires it more reliably.</p>
+<p>Hunt for opportunities to refactor skills to use leading words. A
+triad spelled out at three sites (<strong>duplication</strong>), a
+description spending a sentence to gesture at one idea — each is a
+passage begging to <strong>collapse</strong> into a single token.
+Examples include:</p>
+<ul>
+<li>“fast, deterministic, low-overhead” -&gt; <em>tight</em> — one
+quality restated across a phase — into a single pretrained word (a
+<em>tight</em> loop).</li>
+<li>“a loop you believe in” -&gt; <em>red</em> — converts a fuzzy gate
+into a binary observable state (the loop goes <em>red</em> on the bug,
+or it doesn’t).</li>
+</ul>
+<p>You win twice over: fewer tokens, <em>and</em> a sharper hook for the
+agent to hang its thinking on. Assume every skill is carrying
+restatements that leading words retire — go find them.</p>
+<h2 id="failure-modes">Failure modes</h2>
+<p>Use these to diagnose issues the user may be having with the
+skill.</p>
+<ul>
+<li><strong>Premature completion</strong> — ending a step before it’s
+genuinely done, attention slipping to <em>being done</em>. Defence, in
+order: sharpen the completion criterion first (cheap, local); only if it
+is irreducibly fuzzy <em>and</em> you observe the rush, hide the
+post-completion steps by splitting (the sequence cut).</li>
+<li><strong>Duplication</strong> — the same meaning in more than one
+place. Costs maintenance and tokens, and inflates a meaning’s prominence
+on the ladder past its real rank.</li>
+<li><strong>Sediment</strong> — stale layers that settle because adding
+feels safe and removing feels risky. The default fate of any skill
+without a pruning discipline.</li>
+<li><strong>Sprawl</strong> — a skill simply too long, even when every
+line is live and unique. Hurts readability and maintainability and
+wastes tokens. The cure is the ladder: disclose
+<strong>reference</strong> behind pointers, and split by
+<strong>branch</strong> or sequence so each path carries only what it
+needs.</li>
+<li><strong>No-op</strong> — a line the model already obeys by default,
+so you pay load to say nothing. The test: does it change behaviour
+versus the default? A weak leading word (<em>be thorough</em> when the
+agent is already thorough-ish) is a no-op; the fix is a stronger word
+(<em>relentless</em>), not a different technique.</li>
+</ul>
+
+</body>
+</html>

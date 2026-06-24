@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>codebase-design / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> codebase-design</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module&#39;s interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<h1 id="codebase-design">Codebase Design</h1>
+<p>Design <strong>deep modules</strong>: a lot of behaviour behind a
+small interface, placed at a clean seam, testable through that
+interface. Use this language and these principles wherever code is being
+designed or restructured. The aim is leverage for callers, locality for
+maintainers, and testability for everyone.</p>
+<h2 id="glossary">Glossary</h2>
+<p>Use these terms exactly — don’t substitute “component,” “service,”
+“API,” or “boundary.” Consistent language is the whole point.</p>
+<p><strong>Module</strong> — anything with an interface and an
+implementation. Deliberately scale-agnostic: a function, class, package,
+or tier-spanning slice. <em>Avoid</em>: unit, component, service.</p>
+<p><strong>Interface</strong> — everything a caller must know to use the
+module correctly: the type signature, but also invariants, ordering
+constraints, error modes, required configuration, and performance
+characteristics. <em>Avoid</em>: API, signature (too narrow — they refer
+only to the type-level surface).</p>
+<p><strong>Implementation</strong> — what’s inside a module, its body of
+code. Distinct from <strong>Adapter</strong>: a thing can be a small
+adapter with a large implementation (a Postgres repo) or a large adapter
+with a small implementation (an in-memory fake). Reach for “adapter”
+when the seam is the topic; “implementation” otherwise.</p>
+<p><strong>Depth</strong> — leverage at the interface: the amount of
+behaviour a caller (or test) can exercise per unit of interface they
+have to learn. A module is <strong>deep</strong> when a large amount of
+behaviour sits behind a small interface, <strong>shallow</strong> when
+the interface is nearly as complex as the implementation.</p>
+<p><strong>Seam</strong> <em>(Michael Feathers)</em> — a place where you
+can alter behaviour without editing in that place; the <em>location</em>
+at which a module’s interface lives. Where to put the seam is its own
+design decision, distinct from what goes behind it. <em>Avoid</em>:
+boundary (overloaded with DDD’s bounded context).</p>
+<p><strong>Adapter</strong> — a concrete thing that satisfies an
+interface at a seam. Describes <em>role</em> (what slot it fills), not
+substance (what’s inside).</p>
+<p><strong>Leverage</strong> — what callers get from depth: more
+capability per unit of interface they learn. One implementation pays
+back across N call sites and M tests.</p>
+<p><strong>Locality</strong> — what maintainers get from depth: change,
+bugs, knowledge, and verification concentrate in one place rather than
+spreading across callers. Fix once, fixed everywhere.</p>
+<h2 id="deep-vs-shallow">Deep vs shallow</h2>
+<p><strong>Deep module</strong> = small interface + lots of
+implementation:</p>
+<pre><code>┌─────────────────────┐
+│   Small Interface   │  ← Few methods, simple params
+├─────────────────────┤
+│                     │
+│  Deep Implementation│  ← Complex logic hidden
+│                     │
+└─────────────────────┘</code></pre>
+<p><strong>Shallow module</strong> = large interface + little
+implementation (avoid):</p>
+<pre><code>┌─────────────────────────────────┐
+│       Large Interface           │  ← Many methods, complex params
+├─────────────────────────────────┤
+│  Thin Implementation            │  ← Just passes through
+└─────────────────────────────────┘</code></pre>
+<p>When designing an interface, ask:</p>
+<ul>
+<li>Can I reduce the number of methods?</li>
+<li>Can I simplify the parameters?</li>
+<li>Can I hide more complexity inside?</li>
+</ul>
+<h2 id="principles">Principles</h2>
+<ul>
+<li><strong>Depth is a property of the interface, not the
+implementation.</strong> A deep module can be internally composed of
+small, mockable, swappable parts — they just aren’t part of the
+interface. A module can have <strong>internal seams</strong> (private to
+its implementation, used by its own tests) as well as the
+<strong>external seam</strong> at its interface.</li>
+<li><strong>The deletion test.</strong> Imagine deleting the module. If
+complexity vanishes, it was a pass-through. If complexity reappears
+across N callers, it was earning its keep.</li>
+<li><strong>The interface is the test surface.</strong> Callers and
+tests cross the same seam. If you want to test <em>past</em> the
+interface, the module is probably the wrong shape.</li>
+<li><strong>One adapter means a hypothetical seam. Two adapters means a
+real one.</strong> Don’t introduce a seam unless something actually
+varies across it.</li>
+</ul>
+<h2 id="designing-for-testability">Designing for testability</h2>
+<p>Good interfaces make testing natural:</p>
+<ol type="1">
+<li><p><strong>Accept dependencies, don’t create them.</strong></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Testable</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">processOrder</span>(order<span class="op">,</span> paymentGateway) {}</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Hard to test</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">processOrder</span>(order) {</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gateway <span class="op">=</span> <span class="kw">new</span> <span class="fu">StripeGateway</span>()<span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><p><strong>Return results, don’t produce side effects.</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Testable</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calculateDiscount</span>(cart)<span class="op">:</span> Discount {}</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Hard to test</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">applyDiscount</span>(cart)<span class="op">:</span> <span class="dt">void</span> {</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  cart<span class="op">.</span><span class="at">total</span> <span class="op">-=</span> discount<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<li><p><strong>Small surface area.</strong> Fewer methods = fewer tests
+needed. Fewer params = simpler test setup.</p></li>
+</ol>
+<h2 id="relationships">Relationships</h2>
+<ul>
+<li>A <strong>Module</strong> has exactly one <strong>Interface</strong>
+(the surface it presents to callers and tests).</li>
+<li><strong>Depth</strong> is a property of a <strong>Module</strong>,
+measured against its <strong>Interface</strong>.</li>
+<li>A <strong>Seam</strong> is where a <strong>Module</strong>’s
+<strong>Interface</strong> lives.</li>
+<li>An <strong>Adapter</strong> sits at a <strong>Seam</strong> and
+satisfies the <strong>Interface</strong>.</li>
+<li><strong>Depth</strong> produces <strong>Leverage</strong> for
+callers and <strong>Locality</strong> for maintainers.</li>
+</ul>
+<h2 id="rejected-framings">Rejected framings</h2>
+<ul>
+<li><strong>Depth as ratio of implementation-lines to
+interface-lines</strong> (Ousterhout): rewards padding the
+implementation. We use depth-as-leverage instead.</li>
+<li><strong>“Interface” as the TypeScript <code>interface</code> keyword
+or a class’s public methods</strong>: too narrow — interface here
+includes every fact a caller must know.</li>
+<li><strong>“Boundary”</strong>: overloaded with DDD’s bounded context.
+Say <strong>seam</strong> or <strong>interface</strong>.</li>
+</ul>
+<h2 id="going-deeper">Going deeper</h2>
+<ul>
+<li><strong>Deepening a cluster given its dependencies</strong> — see <a
+href="DEEPENING.md">DEEPENING.md</a>: dependency categories, seam
+discipline, and replace-don’t-layer testing.</li>
+<li><strong>Exploring alternative interfaces</strong> — see <a
+href="DESIGN-IT-TWICE.md">DESIGN-IT-TWICE.md</a>: spin up parallel
+sub-agents to design the interface several radically different ways,
+then compare on depth, locality, and seam placement.</li>
+</ul>
+
+</body>
+</html>

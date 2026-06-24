@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 0009 课：质量门禁与 Git 安全</title>
+  <style>
+    :root { --ink:#1f2933; --muted:#596675; --paper:#fbfaf7; --panel:#fff; --line:#d8dee6; --accent:#0f766e; --soft:#edf7f5; }
+    body { margin:0; font-family:ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", serif; color:var(--ink); background:var(--paper); line-height:1.65; }
+    main { max-width:860px; margin:44px auto; padding:0 24px 64px; }
+    h1 { margin:0 0 6px; font-size:2.25rem; letter-spacing:0; line-height:1.15; }
+    h2 { margin:32px 0 10px; font-size:1.25rem; }
+    p { max-width:70ch; } code { color:var(--accent); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .meta { color:var(--muted); margin:0 0 30px; font-family:ui-sans-serif, system-ui, sans-serif; font-size:.95rem; }
+    .panel { background:var(--panel); border:1px solid var(--line); padding:18px 20px; margin:18px 0; }
+    .practice { background:var(--soft); border:1px solid #b8ddd7; padding:18px 20px; margin-top:18px; }
+    button { border:1px solid var(--accent); background:white; color:var(--accent); padding:8px 12px; font:600 .9rem ui-sans-serif, system-ui, sans-serif; cursor:pointer; }
+    .answer { display:none; margin-top:12px; border-top:1px solid #b8ddd7; padding-top:12px; }
+    ul, ol { padding-left:1.4rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>质量门禁与 Git 安全</h1>
+    <p class="meta">第 0009 课 · 工程周期第 6 阶段 · 12 分钟</p>
+    <p>质量门禁不是最后“看一眼”。它把已经完成的工作放到规范、需求和仓库安全约束下检查。</p>
+
+    <div class="panel">
+      <h2>review：两轴检查</h2>
+      <p><a href="/mattpocock-skills-course-zh/reference/skills/review.html"><code>review</code></a> 从一个固定点比较当前 diff，并分两条轴检查：Standards 看是否符合 repo 规范，Spec 看是否符合 issue/PRD。两轴分开，避免“代码漂亮但做错事”或“需求对但破坏约定”。</p>
+    </div>
+
+    <h2>自动门禁</h2>
+    <ul>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/setup-pre-commit.html"><code>setup-pre-commit</code></a>：安装 Husky、lint-staged、Prettier、typecheck/test 钩子。</li>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/git-guardrails-claude-code.html"><code>git-guardrails-claude-code</code></a>：阻止危险 git 命令，比如 push、reset --hard、clean、branch -D。</li>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/resolving-merge-conflicts.html"><code>resolving-merge-conflicts</code></a>：合并/变基冲突时，先理解双方意图，再解决每个 hunk，最后跑检查。</li>
+    </ul>
+
+    <div class="practice">
+      <h2>小测</h2>
+      <p>“请 review 这条分支相对 main 的改动。”第一步是什么？</p>
+      <button onclick="toggle('a1')">揭晓</button>
+      <p id="a1" class="answer">用 <a href="/mattpocock-skills-course-zh/reference/skills/review.html"><code>review</code></a>，先固定比较点 <code>main</code>，确认 diff 非空，再找 spec 和 standards 来源。</p>
+    </div>
+
+    <h2>继续学习</h2>
+    <p><a href="/mattpocock-skills-course-zh/lessons/index.html">回到课程目录</a> · 下一课：<a href="/mattpocock-skills-course-zh/lessons/0010-handoff-writing-and-skill-authoring.html">第 0010 课：交接、写作与 Skill 阅读</a>。遇到不清楚的术语，可以直接在页面上选中提问。</p>
+  </main>
+  <script>function toggle(id){const e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block';}</script>
+</body>
+</html>

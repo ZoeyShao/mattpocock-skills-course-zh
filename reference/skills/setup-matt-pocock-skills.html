@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>setup-matt-pocock-skills / SKILL.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> setup-matt-pocock-skills</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Sets up an `</span><span class="co">## Agent skills` block in AGENTS.md/CLAUDE.md and `docs/agents/` so the engineering skills know this repo&#39;s issue tracker (GitHub or local markdown), triage label vocabulary, and domain doc layout. Run before first use of `to-issues`, `to-prd`, `triage`, `diagnose`, `tdd`, `improve-codebase-architecture`, or `zoom-out` — or if those skills appear to be missing context about the issue tracker, triage labels, or domain docs.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">disable-model-invocation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
+<h1 id="setup-matt-pococks-skills">Setup Matt Pocock’s Skills</h1>
+<p>Scaffold the per-repo configuration that the engineering skills
+assume:</p>
+<ul>
+<li><strong>Issue tracker</strong> — where issues live (GitHub by
+default; local markdown is also supported out of the box)</li>
+<li><strong>Triage labels</strong> — the strings used for the five
+canonical triage roles</li>
+<li><strong>Domain docs</strong> — where <code>CONTEXT.md</code> and
+ADRs live, and the consumer rules for reading them</li>
+</ul>
+<p>This is a prompt-driven skill, not a deterministic script. Explore,
+present what you found, confirm with the user, then write.</p>
+<h2 id="process">Process</h2>
+<h3 id="explore">1. Explore</h3>
+<p>Look at the current repo to understand its starting state. Read
+whatever exists; don’t assume:</p>
+<ul>
+<li><code>git remote -v</code> and <code>.git/config</code> — is this a
+GitHub repo? Which one?</li>
+<li><code>AGENTS.md</code> and <code>CLAUDE.md</code> at the repo root —
+does either exist? Is there already an <code>## Agent skills</code>
+section in either?</li>
+<li><code>CONTEXT.md</code> and <code>CONTEXT-MAP.md</code> at the repo
+root</li>
+<li><code>docs/adr/</code> and any <code>src/*/docs/adr/</code>
+directories</li>
+<li><code>docs/agents/</code> — does this skill’s prior output already
+exist?</li>
+<li><code>.scratch/</code> — sign that a local-markdown issue tracker
+convention is already in use</li>
+</ul>
+<h3 id="present-findings-and-ask">2. Present findings and ask</h3>
+<p>Summarise what’s present and what’s missing. Then walk the user
+through the three decisions <strong>one at a time</strong> — present a
+section, get the user’s answer, then move to the next. Don’t dump all
+three at once.</p>
+<p>Assume the user does not know what these terms mean. Each section
+starts with a short explainer (what it is, why these skills need it,
+what changes if they pick differently). Then show the choices and the
+default.</p>
+<p><strong>Section A — Issue tracker.</strong></p>
+<blockquote>
+<p>Explainer: The “issue tracker” is where issues live for this repo.
+Skills like <code>to-issues</code>, <code>triage</code>,
+<code>to-prd</code>, and <code>qa</code> read from and write to it —
+they need to know whether to call <code>gh issue create</code>, write a
+markdown file under <code>.scratch/</code>, or follow some other
+workflow you describe. Pick the place you actually track work for this
+repo.</p>
+</blockquote>
+<p>Default posture: these skills were designed for GitHub. If a
+<code>git remote</code> points at GitHub, propose that. If a
+<code>git remote</code> points at GitLab (<code>gitlab.com</code> or a
+self-hosted host), propose GitLab. Otherwise (or if the user prefers),
+offer:</p>
+<ul>
+<li><strong>GitHub</strong> — issues live in the repo’s GitHub Issues
+(uses the <code>gh</code> CLI)</li>
+<li><strong>GitLab</strong> — issues live in the repo’s GitLab Issues
+(uses the <a
+href="https://gitlab.com/gitlab-org/cli"><code>glab</code></a> CLI)</li>
+<li><strong>Local markdown</strong> — issues live as files under
+<code>.scratch/&lt;feature&gt;/</code> in this repo (good for solo
+projects or repos without a remote)</li>
+<li><strong>Other</strong> (Jira, Linear, etc.) — ask the user to
+describe the workflow in one paragraph; the skill will record it as
+freeform prose</li>
+</ul>
+<p><strong>Section B — Triage label vocabulary.</strong></p>
+<blockquote>
+<p>Explainer: When the <code>triage</code> skill processes an incoming
+issue, it moves it through a state machine — needs evaluation, waiting
+on reporter, ready for an AFK agent to pick up, ready for a human, or
+won’t fix. To do that, it needs to apply labels (or the equivalent in
+your issue tracker) that match strings <em>you’ve actually
+configured</em>. If your repo already uses different label names
+(e.g. <code>bug:triage</code> instead of <code>needs-triage</code>), map
+them here so the skill applies the right ones instead of creating
+duplicates.</p>
+</blockquote>
+<p>The five canonical roles:</p>
+<ul>
+<li><code>needs-triage</code> — maintainer needs to evaluate</li>
+<li><code>needs-info</code> — waiting on reporter</li>
+<li><code>ready-for-agent</code> — fully specified, AFK-ready (an agent
+can pick it up with no human context)</li>
+<li><code>ready-for-human</code> — needs human implementation</li>
+<li><code>wontfix</code> — will not be actioned</li>
+</ul>
+<p>Default: each role’s string equals its name. Ask the user if they
+want to override any. If their issue tracker has no existing labels, the
+defaults are fine.</p>
+<p><strong>Section C — Domain docs.</strong></p>
+<blockquote>
+<p>Explainer: Some skills (<code>improve-codebase-architecture</code>,
+<code>diagnose</code>, <code>tdd</code>) read a <code>CONTEXT.md</code>
+file to learn the project’s domain language, and <code>docs/adr/</code>
+for past architectural decisions. They need to know whether the repo has
+one global context or multiple (e.g. a monorepo with separate
+frontend/backend contexts) so they look in the right place.</p>
+</blockquote>
+<p>Confirm the layout:</p>
+<ul>
+<li><strong>Single-context</strong> — one <code>CONTEXT.md</code> +
+<code>docs/adr/</code> at the repo root. Most repos are this.</li>
+<li><strong>Multi-context</strong> — <code>CONTEXT-MAP.md</code> at the
+root pointing to per-context <code>CONTEXT.md</code> files (typically a
+monorepo).</li>
+</ul>
+<h3 id="confirm-and-edit">3. Confirm and edit</h3>
+<p>Show the user a draft of:</p>
+<ul>
+<li>The <code>## Agent skills</code> block to add to whichever of
+<code>CLAUDE.md</code> / <code>AGENTS.md</code> is being edited (see
+step 4 for selection rules)</li>
+<li>The contents of <code>docs/agents/issue-tracker.md</code>,
+<code>docs/agents/triage-labels.md</code>,
+<code>docs/agents/domain.md</code></li>
+</ul>
+<p>Let them edit before writing.</p>
+<h3 id="write">4. Write</h3>
+<p><strong>Pick the file to edit:</strong></p>
+<ul>
+<li>If <code>CLAUDE.md</code> exists, edit it.</li>
+<li>Else if <code>AGENTS.md</code> exists, edit it.</li>
+<li>If neither exists, ask the user which one to create — don’t pick for
+them.</li>
+</ul>
+<p>Never create <code>AGENTS.md</code> when <code>CLAUDE.md</code>
+already exists (or vice versa) — always edit the one that’s already
+there.</p>
+<p>If an <code>## Agent skills</code> block already exists in the chosen
+file, update its contents in-place rather than appending a duplicate.
+Don’t overwrite user edits to the surrounding sections.</p>
+<p>The block:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Agent skills</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">### Issue tracker</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">one-line summary of where issues are tracked</span><span class="co">]</span>. See <span class="in">`docs/agents/issue-tracker.md`</span>.</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">### Triage labels</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">one-line summary of the label vocabulary</span><span class="co">]</span>. See <span class="in">`docs/agents/triage-labels.md`</span>.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">### Domain docs</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">one-line summary of layout — &quot;single-context&quot; or &quot;multi-context&quot;</span><span class="co">]</span>. See <span class="in">`docs/agents/domain.md`</span>.</span></code></pre></div>
+<p>Then write the three docs files using the seed templates in this
+skill folder as a starting point:</p>
+<ul>
+<li><a href="./issue-tracker-github.md">issue-tracker-github.md</a> —
+GitHub issue tracker</li>
+<li><a href="./issue-tracker-gitlab.md">issue-tracker-gitlab.md</a> —
+GitLab issue tracker</li>
+<li><a href="./issue-tracker-local.md">issue-tracker-local.md</a> —
+local-markdown issue tracker</li>
+<li><a href="./triage-labels.md">triage-labels.md</a> — label
+mapping</li>
+<li><a href="./domain.md">domain.md</a> — domain doc consumer rules +
+layout</li>
+</ul>
+<p>For “other” issue trackers, write
+<code>docs/agents/issue-tracker.md</code> from scratch using the user’s
+description.</p>
+<h3 id="done">5. Done</h3>
+<p>Tell the user the setup is complete and which engineering skills will
+now read from these files. Mention they can edit
+<code>docs/agents/*.md</code> directly later — re-running this skill is
+only necessary if they want to switch issue trackers or restart from
+scratch.</p>
+
+</body>
+</html>

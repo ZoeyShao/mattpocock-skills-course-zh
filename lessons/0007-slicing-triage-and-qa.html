@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 0007 课：切片与 Triage</title>
+  <style>
+    :root { --ink:#1f2933; --muted:#596675; --paper:#fbfaf7; --panel:#fff; --line:#d8dee6; --accent:#0f766e; --soft:#edf7f5; }
+    body { margin:0; font-family:ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", serif; color:var(--ink); background:var(--paper); line-height:1.65; }
+    main { max-width:860px; margin:44px auto; padding:0 24px 64px; }
+    h1 { margin:0 0 6px; font-size:2.25rem; letter-spacing:0; line-height:1.15; }
+    h2 { margin:32px 0 10px; font-size:1.25rem; }
+    p { max-width:70ch; } code { color:var(--accent); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .meta { color:var(--muted); margin:0 0 30px; font-family:ui-sans-serif, system-ui, sans-serif; font-size:.95rem; }
+    .panel { background:var(--panel); border:1px solid var(--line); padding:18px 20px; margin:18px 0; }
+    .practice { background:var(--soft); border:1px solid #b8ddd7; padding:18px 20px; margin-top:18px; }
+    button { border:1px solid var(--accent); background:white; color:var(--accent); padding:8px 12px; font:600 .9rem ui-sans-serif, system-ui, sans-serif; cursor:pointer; }
+    .answer { display:none; margin-top:12px; border-top:1px solid #b8ddd7; padding-top:12px; }
+    ul, ol { padding-left:1.4rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>切片与 Triage</h1>
+    <p class="meta">第 0007 课 · 工程周期第 4 阶段 · 15 分钟</p>
+    <p>这个阶段把“文档里的计划”变成“可以被不同人或 agent 抓取的工作”。</p>
+
+    <div class="panel">
+      <h2>to-issues：纵向切片</h2>
+      <p>这里的 <strong>issue</strong> 不是只指 bug。它更像“工作票据”或“任务卡”：可以是 bug、功能、重构、QA 反馈，也可以是从 PRD 拆出来的一小块实现工作。</p>
+      <p><a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a> 把 PRD 或计划拆成 tracer bullet issues。每个 issue 应该穿过 schema、API、UI、测试等必要层，形成一条窄但完整、可验证的路径。</p>
+      <p>反例是横向切片：一个 issue 只建数据库，一个 issue 只写 API，一个 issue 只写 UI。这样每个 issue 都不可独立验证。</p>
+    </div>
+
+    <h2>triage 的位置</h2>
+    <ul>
+      <li><a href="/mattpocock-skills-course-zh/reference/skills/triage.html"><code>triage</code></a>：处理已经进入 issue tracker 的原始请求，给它分类、状态、agent brief 或 needs-info。</li>
+      <li>试玩、验收或 QA 反馈也可以先写成 issue，再交给 <a href="/mattpocock-skills-course-zh/reference/skills/triage.html"><code>triage</code></a> 判断状态。</li>
+    </ul>
+
+    <h2>状态词</h2>
+    <p><code>ready-for-agent</code> 表示 agent 可以无人在旁地开工；<code>ready-for-human</code> 表示需要人类判断或操作；<code>needs-info</code> 表示还缺 reporter 的具体信息。</p>
+
+    <div class="practice">
+      <h2>小测</h2>
+      <p>“PRD 已写好，要拆给多个 agent 并行做。”用哪个 skill？</p>
+      <button onclick="toggle('a1')">揭晓</button>
+      <p id="a1" class="answer"><a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a>。它负责切成可独立抓取、可验收的纵向切片。</p>
+    </div>
+
+    <h2>继续学习</h2>
+    <p><a href="/mattpocock-skills-course-zh/lessons/index.html">回到课程目录</a> · 下一课：<a href="/mattpocock-skills-course-zh/lessons/0008-implementation-tdd-and-diagnosis.html">第 0008 课：实现、TDD 与诊断</a>。遇到不清楚的术语，可以直接在页面上选中提问。</p>
+  </main>
+  <script>function toggle(id){const e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block';}</script>
+</body>
+</html>

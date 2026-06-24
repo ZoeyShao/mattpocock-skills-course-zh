@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 0003 课：发现与澄清</title>
+  <style>
+    :root { color-scheme: light; --ink: #1f2933; --muted: #596675; --paper: #fbfaf7; --panel: #ffffff; --line: #d8dee6; --accent: #0f766e; --soft: #edf7f5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif; color: var(--ink); background: var(--paper); line-height: 1.65; }
+    main { max-width: 860px; margin: 44px auto; padding: 0 24px 64px; }
+    h1 { margin: 0 0 6px; font-size: 2.25rem; letter-spacing: 0; line-height: 1.15; }
+    h2 { margin: 32px 0 10px; font-size: 1.25rem; }
+    p { max-width: 70ch; }
+    a { color: var(--accent); }
+    code { color: var(--accent); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    pre { background: #f4f6f8; border: 1px solid var(--line); padding: 14px; overflow-x: auto; }
+    .meta { color: var(--muted); margin: 0 0 30px; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.95rem; }
+    .panel { background: var(--panel); border: 1px solid var(--line); padding: 18px 20px; margin: 18px 0; }
+    .practice { background: var(--soft); border: 1px solid #b8ddd7; padding: 18px 20px; margin-top: 18px; }
+    button { border: 1px solid var(--accent); background: white; color: var(--accent); padding: 8px 12px; font: 600 0.9rem ui-sans-serif, system-ui, sans-serif; cursor: pointer; margin-top: 8px; }
+    .answer { display: none; margin-top: 12px; color: var(--ink); border-top: 1px solid #b8ddd7; padding-top: 12px; }
+    ol, ul { padding-left: 1.4rem; }
+    @media print { body { background: white; } main { margin: 0; max-width: none; } button { display: none; } .answer { display: block; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>第 1 阶段：发现与澄清</h1>
+    <p class="meta">第 0003 课 · 工程周期第 1 阶段 · 15 分钟</p>
+
+    <p>第 1 阶段的任务，不是立刻写 PRD，也不是急着拆 issue。它的任务是把“我们大概想做什么”变成“我们知道有哪些未知数，以及应该按什么顺序解决它们”。</p>
+
+    <div class="panel">
+      <h2>主 skill：decision-mapping</h2>
+      <p><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 适合处理需要多次 agent 会话才能变清楚的松散想法。它会产出一份 compact markdown 文件，里面是一组按依赖排序的问题票据。</p>
+      <p>这份地图是探索路线，不是最终计划。它故意允许远处还在“战争迷雾”里；我们只需要推进当前边界上的问题。</p>
+      <p>参考：<a href="../reference/0004-decision-map-cheatsheet.html">Decision Map 速查表</a>。</p>
+    </div>
+
+    <h2>什么时候用它</h2>
+    <p>如果用户说的是“我有个想法，但还不知道怎么落地”，先判断模糊程度：</p>
+    <ul>
+      <li>如果几轮追问就能清楚，直接讨论，然后进入 <a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a> 或实现。</li>
+      <li>如果需要研究、原型、多人或多次会话，使用 <a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a>。</li>
+      <li>如果问题主要是视觉、交互或状态行为的手感，后续票据可能调用 <a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a>。</li>
+    </ul>
+
+    <div class="panel">
+      <h2>三种问题票据</h2>
+      <ul>
+        <li><strong>Discuss：</strong>靠追问和取舍解决。常搭配 <a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a> 或 <a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a>。</li>
+        <li><strong>Research：</strong>靠读资料解决，比如第三方 API 文档、竞品、规范、本地知识库。</li>
+        <li><strong>Prototype：</strong>靠试出来解决，比如 UI 方案、状态机、交互流程。</li>
+      </ul>
+      <p>好的票据应该小到一个 agent 会话能解决。太大的问题要继续拆。</p>
+    </div>
+
+    <div class="panel">
+      <h2>decision-mapping 和 grilling 怎么搭配</h2>
+      <p><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 管整张地图，<a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a> 管一张 Discuss 票据里的深挖。</p>
+      <p>常见节奏是：</p>
+      <ol>
+        <li>先用 <a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 把松散想法拆成一组票据。</li>
+        <li>遇到 <code>Type: Discuss</code> 的票据时，用 <a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a> 一次只问一个问题，沿着设计树往下追。</li>
+        <li>当这张票据的问题被回答，把结论写回 decision map 的 <code>Answer</code>。</li>
+        <li>如果追问过程中发现新未知数，就新增票据，并写清楚 <code>Blocked by</code> 依赖。</li>
+      </ol>
+      <p>一句话：<a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 决定“接下来要问哪些问题、按什么顺序问”，<a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a> 决定“这个问题要怎么问到足够清楚”。</p>
+    </div>
+
+    <h2>一个例子</h2>
+    <p>松散想法：“我想做一个团队邀请系统。”</p>
+    <p>可能的 decision map：</p>
+    <pre><code>## #1: 邀请的核心对象是什么？
+Blocked by:
+Type: Discuss
+
+## #2: 邀请链接应该如何过期？
+Blocked by: #1
+Type: Discuss
+
+## #3: 邮件服务选哪家？
+Blocked by: #1
+Type: Research
+
+## #4: 邀请流程的 UI 手感如何？
+Blocked by: #1, #2
+Type: Prototype</code></pre>
+
+    <h2>和后续阶段的关系</h2>
+    <p><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 不负责把需求写漂亮。它负责把未知数解决到“可以写 PRD”的程度。等关键问题被回答，下一阶段才进入 <a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a>、<a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a> 或 <a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a>。</p>
+
+    <div class="practice">
+      <h2>回忆练习</h2>
+      <p>判断应该直接进入下一阶段，还是先做 decision map。</p>
+
+      <p><strong>1.</strong>“我们要把登录页按钮颜色从蓝色改成绿色。”</p>
+      <button onclick="toggle('a1')">揭晓答案</button>
+      <p id="a1" class="answer">通常不需要 decision map。需求很小、未知数很少，可以直接实现或走普通 review。</p>
+
+      <p><strong>2.</strong>“我们想把计费系统重做，但还不确定订阅、发票、试用期和迁移策略。”</p>
+      <button onclick="toggle('a2')">揭晓答案</button>
+      <p id="a2" class="answer">适合 decision map。未知数多，而且彼此有依赖，需要分成 Discuss、Research、Prototype 票据逐个推进。</p>
+
+      <p><strong>3.</strong>“我们知道要做一个 onboarding wizard，但不确定步骤是否太多，用户会不会卡住。”</p>
+      <button onclick="toggle('a3')">揭晓答案</button>
+      <p id="a3" class="answer">可能先建 decision map，其中某些票据用 Prototype。这里的关键问题是交互体验，需要试出来。</p>
+    </div>
+
+    <h2>主要来源</h2>
+    <p>本课基于 <a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 的 <code>SKILL.md</code>，并参考 <a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a> 和 <a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a> 的触发方式。这些都来自上游非 deprecated skill 清单。</p>
+
+    <h2>继续学习</h2>
+    <p><a href="/mattpocock-skills-course-zh/lessons/index.html">回到课程目录</a> · 下一课：<a href="/mattpocock-skills-course-zh/lessons/0004-grilling-prototypes-and-research.html">第 0004 课：追问、研究与原型</a>。遇到不清楚的术语，可以直接在页面上选中提问。</p>
+  </main>
+
+  <script>
+    function toggle(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>

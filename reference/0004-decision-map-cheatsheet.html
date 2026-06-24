@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Decision Map 速查表</title>
+  <style>
+    :root { color-scheme: light; --ink: #1f2933; --muted: #5f6b7a; --line: #d8dee6; --paper: #fbfaf7; --accent: #0f766e; --panel: #fff; }
+    body { margin: 0; font-family: ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", serif; color: var(--ink); background: var(--paper); line-height: 1.65; }
+    main { max-width: 940px; margin: 48px auto; padding: 0 24px 64px; }
+    h1 { font-size: 2.2rem; margin: 0 0 0.2rem; letter-spacing: 0; }
+    h2 { margin: 34px 0 10px; font-size: 1.25rem; }
+    .lede { color: var(--muted); margin: 0 0 2rem; max-width: 72ch; }
+    table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); margin: 14px 0 26px; }
+    th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    th { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); background: #f4f6f8; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--accent); }
+    pre { background: #f4f6f8; border: 1px solid var(--line); padding: 14px; overflow-x: auto; }
+    .note { margin-top: 24px; padding: 16px 18px; border-left: 4px solid var(--accent); background: white; }
+    @media print { body { background: white; } main { margin: 0; max-width: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Decision Map 速查表</h1>
+    <p class="lede"><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 把一个模糊想法拆成一张紧凑的问题地图。地图不是最终方案，而是探索未知数的路线。</p>
+
+    <h2>三种票据</h2>
+    <table>
+      <thead>
+        <tr><th>类型</th><th>什么时候用</th><th>常搭配的 skill</th><th>产物</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Discuss</td>
+          <td>问题主要靠和用户追问、澄清取舍来解决。</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a>, <a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a></td>
+          <td>票据里的 Answer，可能附带术语或决策记录。</td>
+        </tr>
+        <tr>
+          <td>Research</td>
+          <td>问题依赖外部知识、第三方 API 文档、已有资料或本地知识库。</td>
+          <td>资料检索、代码阅读、文档阅读</td>
+          <td>一份 markdown 研究摘要，链接回 decision map。</td>
+        </tr>
+        <tr>
+          <td>Prototype</td>
+          <td>问题必须通过试出来回答，例如交互感觉、状态机行为、UI 方案。</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a></td>
+          <td>一次性原型，以及从原型里得到的结论。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>票据格式</h2>
+    <pre><code>## #1: 选择邀请过期策略
+
+Blocked by: #&lt;ticket-number&gt;
+Type: Research | Prototype | Discuss
+
+### Question
+
+邀请链接应该何时过期，过期后用户看到什么？
+
+### Answer
+
+&lt;解决后再填写&gt;</code></pre>
+
+    <h2>和 grilling 的搭配</h2>
+    <table>
+      <thead>
+        <tr><th>动作</th><th>谁负责</th><th>结果写到哪里</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>把松散想法拆成多个未知数</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a></td>
+          <td>新的 decision map 文件</td>
+        </tr>
+        <tr>
+          <td>追问某个 Discuss 票据</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a></td>
+          <td>该票据的 <code>Answer</code></td>
+        </tr>
+        <tr>
+          <td>发现新的依赖问题</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a></td>
+          <td>新增票据，并填写 <code>Blocked by</code></td>
+        </tr>
+        <tr>
+          <td>确认不需要继续建图</td>
+          <td><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a></td>
+          <td>转入 <a href="/mattpocock-skills-course-zh/reference/skills/to-prd.html"><code>to-prd</code></a>、<a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a> 或实现阶段</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>判断规则：</strong>如果一次讨论就能看清路线，不需要 decision map。只有当模糊想法需要跨多次 agent 会话、研究或原型来推进时，才值得建图。
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>术语解释</title>
+  <style>
+    :root { --ink:#1f2933; --muted:#5f6b7a; --line:#d8dee6; --paper:#fbfaf7; --accent:#0f766e; --panel:#fff; }
+    body { margin:0; font-family:ui-serif, Georgia, "Noto Serif CJK SC", "Source Han Serif SC", serif; color:var(--ink); background:var(--paper); line-height:1.65; }
+    main { max-width:960px; margin:48px auto; padding:0 24px 64px; }
+    h1 { font-size:2.2rem; margin:0 0 .2rem; letter-spacing:0; }
+    h2 { margin:34px 0 10px; font-size:1.25rem; }
+    p { color:var(--muted); max-width:72ch; }
+    table { width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); margin:12px 0 28px; }
+    th, td { text-align:left; vertical-align:top; padding:12px 14px; border-bottom:1px solid var(--line); }
+    th { font-family:ui-sans-serif, system-ui, sans-serif; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); background:#f4f6f8; }
+    a { color:var(--accent); }
+    code { color:var(--accent); font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    @media print { body { background:white; } main { margin:0; max-width:none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>术语解释</h1>
+    <p>这份表只解释课程里反复出现、容易混淆的词。它不是翻译词典，而是帮助你判断这些 skills 在工程流程里到底指什么。</p>
+
+    <h2>Skill 与工作流</h2>
+    <table>
+      <thead><tr><th>术语</th><th>意思</th><th>在课程里怎么用</th></tr></thead>
+      <tbody>
+        <tr><td><code>skill</code></td><td>一个可被 agent 调用的工作流说明，通常由 <code>SKILL.md</code> 和少量参考文件组成。</td><td>不要把 skill 当命令清单；它更像“什么时候用、怎么推进、产出什么”的操作规程。</td></tr>
+        <tr><td><code>SKILL.md</code></td><td>skill 的主说明文件。</td><td>阅读时先看 frontmatter 里的 <code>description</code>，再看流程、约束和产物。</td></tr>
+        <tr><td>frontmatter</td><td>Markdown 文件顶部的 YAML 元数据块。</td><td>用来声明 skill 名称、触发条件和简短用途。</td></tr>
+        <tr><td>agent</td><td>执行任务的 AI 工作单元。</td><td>课程里默认 agent 会读文档、改代码、跑检查，但需要明确上下文和边界。</td></tr>
+        <tr><td>handoff</td><td>交接文档或交接动作。</td><td>当上下文太长、要换会话或换 agent 时，用它保留当前状态和下一步。</td></tr>
+      </tbody>
+    </table>
+
+    <h2>仓库与代码</h2>
+    <table>
+      <thead><tr><th>术语</th><th>意思</th><th>在课程里怎么用</th></tr></thead>
+      <tbody>
+        <tr><td>repo</td><td>repository，Git 仓库。它是代码存放和版本管理的单位。</td><td>问“这个东西在哪个 repo 里”是在问存放位置。</td></tr>
+        <tr><td>codebase</td><td>代码库，指一套项目代码作为工程对象的整体。</td><td>它可能等于一个 repo，也可能只是 monorepo 的一部分，或跨多个 repo。</td></tr>
+        <tr><td>monorepo</td><td>一个 Git 仓库里放多个 app、package 或服务。</td><td>这时 repo 和 codebase 不一定一一对应。</td></tr>
+        <tr><td>single-context repo</td><td>单上下文 repo，整个仓库基本共享一套领域语言和架构决策。</td><td>agent 读根目录的 <code>CONTEXT.md</code> 和 <code>docs/adr/</code> 通常就够了。</td></tr>
+        <tr><td>multi-context repo</td><td>多上下文 repo，一个仓库里有多个相对独立的业务或技术上下文。</td><td>不同上下文可能有不同术语、规则和 ADR。</td></tr>
+      </tbody>
+    </table>
+
+    <h2>需求、任务与状态</h2>
+    <table>
+      <thead><tr><th>术语</th><th>意思</th><th>在课程里怎么用</th></tr></thead>
+      <tbody>
+        <tr><td>PRD</td><td>Product Requirements Document，产品需求文档。</td><td>把模糊想法整理成可实现、可验收的需求。</td></tr>
+        <tr><td>issue</td><td>工作票据或任务卡，不只是 bug。</td><td>可以表示 bug、功能、重构、QA 反馈，或从 PRD 拆出的小任务。</td></tr>
+        <tr><td>issue tracker</td><td>管理 issue 的系统，例如 GitHub Issues、GitLab Issues、Linear 或本地 markdown。</td><td><code>to-prd</code>、<code>to-issues</code>、<code>triage</code> 都需要知道它在哪里。</td></tr>
+        <tr><td>triage</td><td>对进入 issue tracker 的请求做分类、补信息、定状态。</td><td>目标不是立刻实现，而是判断它能否被 agent 或人类接手。</td></tr>
+        <tr><td>triage label</td><td>issue tracker 里的状态或类型标签。</td><td>例如 <code>needs-info</code>、<code>ready-for-agent</code>、<code>wontfix</code>。</td></tr>
+        <tr><td>QA feedback</td><td>试玩、测试或验收时发现的问题反馈。</td><td>它可以先变成 issue，再进入 triage。</td></tr>
+        <tr><td>tracer bullet issue</td><td>纵向切片 issue，穿过必要层次形成一条窄但完整的可验证路径。</td><td>反例是“一个 issue 只建数据库、另一个只写 API、另一个只写 UI”的横向切片。</td></tr>
+      </tbody>
+    </table>
+
+    <h2>领域语言与架构</h2>
+    <table>
+      <thead><tr><th>术语</th><th>意思</th><th>在课程里怎么用</th></tr></thead>
+      <tbody>
+        <tr><td>domain</td><td>领域，项目真正关心的问题空间。</td><td>例如 billing、ordering、invitation，而不是单纯的文件夹名。</td></tr>
+        <tr><td>domain language</td><td>领域语言，团队对领域概念的稳定命名。</td><td>它回答“这些东西叫什么、边界在哪里”。</td></tr>
+        <tr><td>DDD</td><td>Domain-Driven Design，领域驱动设计。</td><td>课程里主要借用它的术语思想，不要求完整实践 DDD 方法论。</td></tr>
+        <tr><td>ADR</td><td>Architecture Decision Record，架构决策记录。</td><td>它回答“为什么我们这样设计”，适合记录有明显取舍的技术决定。</td></tr>
+        <tr><td>seam</td><td>代码里的接缝，系统可以被替换、隔离或测试的边界。</td><td>判断 seam 时要问它是否真的有多个 adapter，还是过早抽象。</td></tr>
+        <tr><td>adapter</td><td>适配器，把一个外部系统或具体实现包成内部可用的接口。</td><td>多个 adapter 常常说明某个 seam 是真实存在的。</td></tr>
+        <tr><td>interface</td><td>模块暴露给调用者的入口形状。</td><td>好 interface 让调用者少知道内部细节。</td></tr>
+        <tr><td>deep module</td><td>深模块，小接口背后承载较多复杂行为。</td><td><code>codebase-design</code> 和 <code>improve-codebase-architecture</code> 常用这个判断模块质量。</td></tr>
+      </tbody>
+    </table>
+
+    <h2>实现与质量</h2>
+    <table>
+      <thead><tr><th>术语</th><th>意思</th><th>在课程里怎么用</th></tr></thead>
+      <tbody>
+        <tr><td>TDD</td><td>Test-Driven Development，测试驱动开发。</td><td>按红灯、绿灯、重构循环推进一个行为。</td></tr>
+        <tr><td>red-green-refactor</td><td>红灯、绿灯、重构。</td><td>先写失败测试，再写最少实现让测试通过，然后整理代码。</td></tr>
+        <tr><td>feedback loop</td><td>反馈循环，用一个可重复运行的检查告诉你改动是否有效。</td><td>诊断 bug 时先建立 loop，再提出假设。</td></tr>
+        <tr><td>Standards</td><td>review 的一条轴：代码是否符合仓库规范。</td><td>看风格、架构约定、测试习惯、安全边界。</td></tr>
+        <tr><td>Spec</td><td>review 的另一条轴：代码是否符合 issue 或 PRD 要求。</td><td>防止代码写得漂亮但做错事。</td></tr>
+        <tr><td>pre-commit</td><td>提交前自动运行的检查钩子。</td><td>常用于格式化、类型检查、lint、测试。</td></tr>
+      </tbody>
+    </table>
+
+    <h2>探索与决策</h2>
+    <table>
+      <thead><tr><th>术语</th><th>意思</th><th>在课程里怎么用</th></tr></thead>
+      <tbody>
+        <tr><td>decision map</td><td>把模糊想法拆成一组有依赖关系的问题票据。</td><td>用于还不能直接写 PRD 的早期探索。</td></tr>
+        <tr><td>Discuss</td><td>decision map 里的问题类型，靠讨论和取舍解决。</td><td>常搭配 <code>grilling</code> 或 <code>domain-modeling</code>。</td></tr>
+        <tr><td>Research</td><td>decision map 里的问题类型，靠读资料解决。</td><td>例如第三方 API、竞品、规范或本地文档。</td></tr>
+        <tr><td>Prototype</td><td>decision map 里的问题类型，靠试出来解决。</td><td>适合 UI 手感、状态机、交互流程或业务规则可行性。</td></tr>
+        <tr><td>AFK agent</td><td>可以在人不盯着的情况下接手工作的 agent。</td><td><code>ready-for-agent</code> 的意思就是信息足够，agent 可以独立推进。</td></tr>
+      </tbody>
+    </table>
+
+    <p><a href="/mattpocock-skills-course-zh/lessons/index.html">回到课程目录</a></p>
+  </main>
+</body>
+</html>

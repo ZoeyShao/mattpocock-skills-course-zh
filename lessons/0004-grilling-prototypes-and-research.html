@@ -16,6 +16,10 @@
     .practice { background:var(--soft); border:1px solid #b8ddd7; padding:18px 20px; margin-top:18px; }
     button { border:1px solid var(--accent); background:white; color:var(--accent); padding:8px 12px; font:600 .9rem ui-sans-serif, system-ui, sans-serif; cursor:pointer; }
     .answer { display:none; margin-top:12px; border-top:1px solid #b8ddd7; padding-top:12px; }
+    .compare { overflow-x:auto; margin:14px 0 28px; }
+    table { width:100%; min-width:760px; border-collapse:collapse; background:white; border:1px solid var(--line); }
+    th, td { text-align:left; vertical-align:top; padding:11px 12px; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); background:#f4f6f8; font:700 .78rem ui-sans-serif, system-ui, sans-serif; letter-spacing:.04em; text-transform:uppercase; }
     ul, ol { padding-left:1.4rem; }
   </style>
 </head>
@@ -33,6 +37,42 @@
         <li><strong>Prototype：</strong>靠试出来解决，用 <a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a> 做一次性 UI 或逻辑原型。</li>
       </ul>
     </div>
+
+    <h2>三个 grilling skills 怎么选</h2>
+    <p>它们都用于 Discuss 型 ticket：靠追问把计划或设计问清楚。区别主要在“有没有仓库文档参与”和“会不会顺手更新领域文档”。</p>
+    <div class="compare">
+      <table>
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>适合什么时候</th>
+            <th>会看什么上下文</th>
+            <th>产物</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a></td>
+            <td>默认选择。你有一个计划或设计，需要被一轮轮追问、压实取舍。</td>
+            <td>当前对话；如果某个问题能从代码库回答，就去看代码。</td>
+            <td>共享理解、推荐答案、被问清楚的设计分支。</td>
+          </tr>
+          <tr>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/grill-me.html"><code>grill-me</code></a></td>
+            <td>口语入口。用户明确说“grill me”或想被盘问自己的方案时用。</td>
+            <td>当前对话和必要的代码库探索。</td>
+            <td>和 <code>grilling</code> 很接近：一次只问一个问题，直到设计树走清楚。</td>
+          </tr>
+          <tr>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a></td>
+            <td>方案会碰到领域术语、既有架构决策，或你希望边追问边沉淀文档。</td>
+            <td><code>CONTEXT.md</code>、<code>CONTEXT-MAP.md</code>、<code>docs/adr/</code> 和代码。</td>
+            <td>追问结论，同时内联更新领域词汇；必要时补 ADR。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>简单规则：普通追问用 <code>grilling</code>；用户明确说“grill me”时用 <code>grill-me</code>；需要对照或更新领域文档时用 <code>grill-with-docs</code>。</p>
 
     <h2>prototype 的关键判断</h2>
     <p><a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a> 是“用一次性代码回答一个问题”。如果问题是状态模型、业务逻辑或流程是否合理，做终端或逻辑原型；如果问题是视觉和交互感觉，做 UI 变体原型。原型的价值不是代码，而是结论。</p>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ADR-FORMAT.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<h1 id="adr-format">ADR Format</h1>
+<p>ADRs live in <code>docs/adr/</code> and use sequential numbering: <code>0001-slug.md</code>, <code>0002-slug.md</code>, etc.</p>
+<p>Create the <code>docs/adr/</code> directory lazily — only when the first ADR is needed.</p>
+<h2 id="template">Template</h2>
+<pre><code># {Short title of the decision}
+
+{1-3 sentences: what's the context, what did we decide, and why.}</code></pre>
+<p>That's it. An ADR can be a single paragraph. The value is in recording <em>that</em> a decision was made and <em>why</em> — not in filling out sections.</p>
+<h2 id="optional-sections">Optional sections</h2>
+<p>Only include these when they add genuine value. Most ADRs won't need them.</p>
+<ul>
+<li><strong>Status</strong> frontmatter (<code>proposed | accepted | deprecated | superseded by ADR-NNNN</code>) — useful when decisions are revisited</li>
+<li><strong>Considered Options</strong> — only when the rejected alternatives are worth remembering</li>
+<li><strong>Consequences</strong> — only when non-obvious downstream effects need to be called out</li>
+</ul>
+<h2 id="numbering">Numbering</h2>
+<p>Scan <code>docs/adr/</code> for the highest existing number and increment by one.</p>
+<h2 id="when-to-offer-an-adr">When to offer an ADR</h2>
+<p>All three of these must be true:</p>
+<ol>
+<li><strong>Hard to reverse</strong> — the cost of changing your mind later is meaningful</li>
+<li><strong>Surprising without context</strong> — a future reader will look at the code and wonder "why on earth did they do it this way?"</li>
+<li><strong>The result of a real trade-off</strong> — there were genuine alternatives and you picked one for specific reasons</li>
+</ol>
+<p>If a decision is easy to reverse, skip it — you'll just reverse it. If it's not surprising, nobody will wonder why. If there was no real alternative, there's nothing to record beyond "we did the obvious thing."</p>
+<h3 id="what-qualifies">What qualifies</h3>
+<ul>
+<li><strong>Architectural shape.</strong> "We're using a monorepo." "The write model is event-sourced, the read model is projected into Postgres."</li>
+<li><strong>Integration patterns between contexts.</strong> "Ordering and Billing communicate via domain events, not synchronous HTTP."</li>
+<li><strong>Technology choices that carry lock-in.</strong> Database, message bus, auth provider, deployment target. Not every library — just the ones that would take a quarter to swap out.</li>
+<li><strong>Boundary and scope decisions.</strong> "Customer data is owned by the Customer context; other contexts reference it by ID only." The explicit no-s are as valuable as the yes-s.</li>
+<li><strong>Deliberate deviations from the obvious path.</strong> "We're using manual SQL instead of an ORM because X." Anything where a reasonable reader would assume the opposite. These stop the next engineer from "fixing" something that was deliberate.</li>
+<li><strong>Constraints not visible in the code.</strong> "We can't use AWS because of compliance requirements." "Response times must be under 200ms because of the partner API contract."</li>
+<li><strong>Rejected alternatives when the rejection is non-obvious.</strong> If you considered GraphQL and picked REST for subtle reasons, record it — otherwise someone will suggest GraphQL again in six months.</li>
+</ul>
+</body>
+</html>

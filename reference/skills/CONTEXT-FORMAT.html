@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CONTEXT-FORMAT.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<h1 id="context.md-format">CONTEXT.md Format</h1>
+<h2 id="structure">Structure</h2>
+<pre><code># {Context Name}
+
+{One or two sentence description of what this context is and why it exists.}
+
+## Language
+
+**Order**:
+{A one or two sentence description of the term}
+_Avoid_: Purchase, transaction
+
+**Invoice**:
+A request for payment sent to a customer after delivery.
+_Avoid_: Bill, payment request
+
+**Customer**:
+A person or organization that places orders.
+_Avoid_: Client, buyer, account</code></pre>
+<h2 id="rules">Rules</h2>
+<ul>
+<li><strong>Be opinionated.</strong> When multiple words exist for the same concept, pick the best one and list the others under <code>_Avoid_</code>.</li>
+<li><strong>Keep definitions tight.</strong> One or two sentences max. Define what it IS, not what it does.</li>
+<li><strong>Only include terms specific to this project's context.</strong> General programming concepts (timeouts, error types, utility patterns) don't belong even if the project uses them extensively. Before adding a term, ask: is this a concept unique to this context, or a general programming concept? Only the former belongs.</li>
+<li><strong>Group terms under subheadings</strong> when natural clusters emerge. If all terms belong to a single cohesive area, a flat list is fine.</li>
+</ul>
+<h2 id="single-vs-multi-context-repos">Single vs multi-context repos</h2>
+<p><strong>Single context (most repos):</strong> One <code>CONTEXT.md</code> at the repo root.</p>
+<p><strong>Multiple contexts:</strong> A <code>CONTEXT-MAP.md</code> at the repo root lists the contexts, where they live, and how they relate to each other:</p>
+<pre><code># Context Map
+
+## Contexts
+
+- [Ordering](./src/ordering/CONTEXT.md) — receives and tracks customer orders
+- [Billing](./src/billing/CONTEXT.md) — generates invoices and processes payments
+- [Fulfillment](./src/fulfillment/CONTEXT.md) — manages warehouse picking and shipping
+
+## Relationships
+
+- **Ordering → Fulfillment**: Ordering emits `OrderPlaced` events; Fulfillment consumes them to start picking
+- **Fulfillment → Billing**: Fulfillment emits `ShipmentDispatched` events; Billing consumes them to generate invoices
+- **Ordering ↔ Billing**: Shared types for `CustomerId` and `Money`</code></pre>
+<p>The skill infers which structure applies:</p>
+<ul>
+<li>If <code>CONTEXT-MAP.md</code> exists, read it to find contexts</li>
+<li>If only a root <code>CONTEXT.md</code> exists, single context</li>
+<li>If neither exists, create a root <code>CONTEXT.md</code> lazily when the first term is resolved</li>
+</ul>
+<p>When multiple contexts exist, infer which one the current topic relates to. If unclear, ask.</p>
+</body>
+</html>

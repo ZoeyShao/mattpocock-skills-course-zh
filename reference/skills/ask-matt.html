@@ -120,32 +120,6 @@ your first engineering flow to configure the issue tracker, triage
 labels, and doc layout the other skills assume. Custom issue trackers
 also work.</p>
 
-<script>
-(() => {
-  const skillLinks = new Map([
-    ["/grill-with-docs", "grill-with-docs.html"],
-    ["/grill-me", "grill-me.html"],
-    ["/handoff", "handoff.html"],
-    ["/prototype", "prototype.html"],
-    ["/to-prd", "to-prd.html"],
-    ["/to-issues", "to-issues.html"],
-    ["/implement", "implement.html"],
-    ["/triage", "triage.html"],
-    ["/improve-codebase-architecture", "improve-codebase-architecture.html"],
-    ["/teach", "teach.html"],
-    ["/writing-great-skills", "writing-great-skills.html"],
-    ["/setup-matt-pocock-skills", "setup-matt-pocock-skills.html"]
-  ]);
-  document.querySelectorAll("code").forEach((code) => {
-    if (code.closest("pre") || code.closest("a")) return;
-    const href = skillLinks.get(code.textContent.trim());
-    if (!href) return;
-    const link = document.createElement("a");
-    link.href = href;
-    code.replaceWith(link);
-    link.appendChild(code);
-  });
-})();
-</script>
+<script src="link-skills.js"></script>
 </body>
 </html>

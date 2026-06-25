@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DESIGN-IT-TWICE.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<h1 id="design-it-twice">Design It Twice</h1>
+<p>When the user wants to explore alternative interfaces for a chosen deepening candidate, use this parallel sub-agent pattern. Based on "Design It Twice" (Ousterhout) — your first idea is unlikely to be the best.</p>
+<p>Uses the vocabulary in <a href="codebase-design.html">SKILL.md</a> — <strong>module</strong>, <strong>interface</strong>, <strong>seam</strong>, <strong>adapter</strong>, <strong>leverage</strong>.</p>
+<h2 id="process">Process</h2>
+<h3 id="frame-the-problem-space">1. Frame the problem space</h3>
+<p>Before spawning sub-agents, write a user-facing explanation of the problem space for the chosen candidate:</p>
+<ul>
+<li>The constraints any new interface would need to satisfy</li>
+<li>The dependencies it would rely on, and which category they fall into (see <a href="DEEPENING.html">DEEPENING.md</a>)</li>
+<li>A rough illustrative code sketch to ground the constraints — not a proposal, just a way to make the constraints concrete</li>
+</ul>
+<p>Show this to the user, then immediately proceed to Step 2. The user reads and thinks while the sub-agents work in parallel.</p>
+<h3 id="spawn-sub-agents">2. Spawn sub-agents</h3>
+<p>Spawn 3+ sub-agents in parallel using the Agent tool. Each must produce a <strong>radically different</strong> interface for the deepened module.</p>
+<p>Prompt each sub-agent with a separate technical brief (file paths, coupling details, dependency category from <a href="DEEPENING.html">DEEPENING.md</a>, what sits behind the seam). The brief is independent of the user-facing problem-space explanation in Step 1. Give each agent a different design constraint:</p>
+<ul>
+<li>Agent 1: "Minimize the interface — aim for 1–3 entry points max. Maximise leverage per entry point."</li>
+<li>Agent 2: "Maximise flexibility — support many use cases and extension."</li>
+<li>Agent 3: "Optimise for the most common caller — make the default case trivial."</li>
+<li>Agent 4 (if applicable): "Design around ports &amp; adapters for cross-seam dependencies."</li>
+</ul>
+<p>Include both <a href="codebase-design.html">SKILL.md</a> vocabulary and CONTEXT.md vocabulary in the brief so each sub-agent names things consistently with the architecture language and the project's domain language.</p>
+<p>Each sub-agent outputs:</p>
+<ol>
+<li>Interface (types, methods, params — plus invariants, ordering, error modes)</li>
+<li>Usage example showing how callers use it</li>
+<li>What the implementation hides behind the seam</li>
+<li>Dependency strategy and adapters (see <a href="DEEPENING.html">DEEPENING.md</a>)</li>
+<li>Trade-offs — where leverage is high, where it's thin</li>
+</ol>
+<h3 id="present-and-compare">3. Present and compare</h3>
+<p>Present designs sequentially so the user can absorb each one, then compare them in prose. Contrast by <strong>depth</strong> (leverage at the interface), <strong>locality</strong> (where change concentrates), and <strong>seam placement</strong>.</p>
+<p>After comparing, give your own recommendation: which design you think is strongest and why. If elements from different designs would combine well, propose a hybrid. Be opinionated — the user wants a strong read, not a menu.</p>
+</body>
+</html>

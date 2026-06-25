@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>codebase-design / SKILL.md</title>
-  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}.user-annotated{margin:18px 0;padding:10px 12px;border-left:4px solid #d97706;background:#fff7cc}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
 </head>
 <body>
 <div class="sourceCode" id="cb1"><pre
@@ -13,11 +13,14 @@ class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> Shared vocabulary for designing deep modules. Use when the user wants to design or improve a module&#39;s interface, find deepening opportunities, decide where a seam goes, make code more testable or AI-navigable, or when another skill needs the deep-module vocabulary.</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <h1 id="codebase-design">Codebase Design</h1>
-<p>Design <strong>deep modules</strong>: a lot of behaviour behind a
+<p class="user-annotated">Design <strong>deep modules</strong>: a lot of behaviour behind a
 small interface, placed at a clean seam, testable through that
 interface. Use this language and these principles wherever code is being
 designed or restructured. The aim is leverage for callers, locality for
 maintainers, and testability for everyone.</p>
+<blockquote>
+<p><strong>我的批注：</strong>深模块 = 对外用法很简单，但内部替你处理很多复杂事。好的 codebase design 会把复杂度放到清楚的 interface 后面，让调用者少知道细节，维护者集中修改，测试也通过同一个入口验证。</p>
+</blockquote>
 <h2 id="glossary">Glossary</h2>
 <p>Use these terms exactly — don’t substitute “component,” “service,”
 “API,” or “boundary.” Consistent language is the whole point.</p>

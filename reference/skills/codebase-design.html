@@ -118,7 +118,7 @@ varies across it.</li>
 <h2 id="designing-for-testability">Designing for testability</h2>
 <p>Good interfaces make testing natural:</p>
 <ol type="1">
-<li><p><strong>Accept dependencies, don’t create them.</strong></p>
+<li><div class="user-annotated"><p><strong>Accept dependencies, don’t create them.</strong></p>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Testable</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">processOrder</span>(order<span class="op">,</span> paymentGateway) {}</span>
@@ -126,7 +126,10 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Hard to test</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">processOrder</span>(order) {</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> gateway <span class="op">=</span> <span class="kw">new</span> <span class="fu">StripeGateway</span>()<span class="op">;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></div>
+<blockquote>
+<p><strong>我的批注：</strong>依赖由外部提供，模块只使用它，不负责创建它。这样会形成一个清楚的 <code>seam</code>，测试可以轻松替换行为。</p>
+</blockquote></li>
 <li><p><strong>Return results, don’t produce side effects.</strong></p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Testable</span></span>

@@ -16,13 +16,18 @@
     .practice { background:var(--soft); border:1px solid #b8ddd7; padding:18px 20px; margin-top:18px; }
     button { border:1px solid var(--accent); background:white; color:var(--accent); padding:8px 12px; font:600 .9rem ui-sans-serif, system-ui, sans-serif; cursor:pointer; }
     .answer { display:none; margin-top:12px; border-top:1px solid #b8ddd7; padding-top:12px; }
+    .compare { overflow-x:auto; margin:14px 0 28px; }
+    table { width:100%; min-width:820px; border-collapse:collapse; background:white; border:1px solid var(--line); }
+    th, td { text-align:left; vertical-align:top; padding:11px 12px; border-bottom:1px solid var(--line); }
+    th { color:var(--muted); background:#f4f6f8; font:700 .78rem ui-sans-serif, system-ui, sans-serif; letter-spacing:.04em; text-transform:uppercase; }
+    .source-note { color:var(--muted); font-size:.95rem; }
     ul, ol { padding-left:1.4rem; }
   </style>
 </head>
 <body>
   <main>
     <h1>完整工程 Flow 复盘</h1>
-    <p class="meta">第 0011 课 · 总复盘 · 12 分钟</p>
+    <p class="meta">第 0011 课 · 总复盘 · 18 分钟</p>
     <p>你现在可以把这套 skills 看成一个工程系统，而不是一堆命令。</p>
 
     <div class="panel">
@@ -44,6 +49,68 @@
 
     <h2>什么时候问 ask-matt</h2>
     <p><a href="/mattpocock-skills-course-zh/reference/skills/ask-matt.html"><code>ask-matt</code></a> 是路由器。当你不确定该从哪条流开始，或者忘了哪个 skill 对应哪个阶段，就问它。</p>
+
+    <h2>从 30 个 skills 学到的写法</h2>
+    <p>这些 skills 的共同目标不是“把内容写全”，而是让 agent 每次都更可预测地走同一套过程。下面是最值得迁移到你自己 skill 写作里的模式。</p>
+    <div class="compare">
+      <table>
+        <thead>
+          <tr>
+            <th>Takeaway</th>
+            <th>原 skill 线索</th>
+            <th>怎么借鉴</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>description 是触发条件，不是漂亮摘要。</strong></td>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a> frontmatter 写明：<span class="source-note">Use when user wants to convert a plan into issues...</span></td>
+            <td>写 description 时列出真实触发分支：用户说什么、任务长什么样、其他 skill 什么时候会依赖它。</td>
+          </tr>
+          <tr>
+            <td><strong>用 leading word 压缩行为。</strong></td>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 用 <code>fog of war</code>；<a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a> 用 <code>tracer bullet</code>；<a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a> 用 <code>red-green-refactor</code>。</td>
+            <td>不要反复解释同一行为。找一个稳定词，让它成为整段流程的抓手。</td>
+          </tr>
+          <tr>
+            <td><strong>先定义耐久产物。</strong></td>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 把 map 称为 canonical artifact；<a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a> 说原型最后值得保留的是 answer。</td>
+            <td>skill 开头就回答：这次运行结束后，仓库里或 issue tracker 里应该留下什么。</td>
+          </tr>
+          <tr>
+            <td><strong>用停止条件防止过早完成。</strong></td>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/diagnosing-bugs.html"><code>diagnosing-bugs</code></a> 要求先有 red-capable feedback loop；<a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a> 明确：Never refactor while RED.</td>
+            <td>把“什么时候可以进入下一阶段”写成可检查条件，而不是写成模糊愿望。</td>
+          </tr>
+          <tr>
+            <td><strong>反模式要直接写出来。</strong></td>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a> 有 Anti-Pattern: Horizontal Slices；<a href="/mattpocock-skills-course-zh/reference/skills/to-issues.html"><code>to-issues</code></a> 强调每个 issue 不是横向层切片。</td>
+            <td>如果 agent 常犯某个错，不要只写正例；把错法命名并禁止。</td>
+          </tr>
+          <tr>
+            <td><strong>把分支显式化。</strong></td>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/decision-mapping.html"><code>decision-mapping</code></a> 分 bootstrap / resume；<a href="/mattpocock-skills-course-zh/reference/skills/prototype.html"><code>prototype</code></a> 分 logic / UI 两条 branch。</td>
+            <td>一个 skill 有多种运行方式时，先写“怎么选分支”，再写每条分支的动作。</td>
+          </tr>
+          <tr>
+            <td><strong>写清楚要读哪些上下文。</strong></td>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/setup-matt-pocock-skills.html"><code>setup-matt-pocock-skills</code></a> 约定 issue tracker、triage labels、domain docs；<a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a> 会对照 <code>CONTEXT.md</code> 和 ADR。</td>
+            <td>不要假设 agent 会知道去哪找事实。把上下文入口写成 workflow 的一部分。</td>
+          </tr>
+          <tr>
+            <td><strong>短 skill 也可以很强。</strong></td>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/grilling.html"><code>grilling</code></a>、<a href="/mattpocock-skills-course-zh/reference/skills/handoff.html"><code>handoff</code></a>、<a href="/mattpocock-skills-course-zh/reference/skills/implement.html"><code>implement</code></a> 都很短，但触发清楚、行为单一。</td>
+            <td>只有当它能防跑偏时才加长度。核心动作单一时，用短指令保留锋利度。</td>
+          </tr>
+          <tr>
+            <td><strong>把 reference 下沉，别把主流程写肿。</strong></td>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/writing-great-skills.html"><code>writing-great-skills</code></a> 用 <code>GLOSSARY.md</code> 承载术语；<a href="/mattpocock-skills-course-zh/reference/skills/tdd.html"><code>tdd</code></a> 把 tests、mocking、deep modules、interface design 放到外部参考。</td>
+            <td>主 <code>SKILL.md</code> 保留每次都要执行的东西；只在某些分支需要的材料，放到被明确指向的参考文件。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>压缩成一句话：好 skill 不是知识库，而是带触发条件、产物、门槛和反模式的执行协议。</p>
 
     <div class="practice">
       <h2>最终小测</h2>

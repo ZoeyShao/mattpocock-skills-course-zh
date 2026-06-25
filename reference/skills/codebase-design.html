@@ -42,11 +42,19 @@ behaviour a caller (or test) can exercise per unit of interface they
 have to learn. A module is <strong>deep</strong> when a large amount of
 behaviour sits behind a small interface, <strong>shallow</strong> when
 the interface is nearly as complex as the implementation.</p>
-<p><strong>Seam</strong> <em>(Michael Feathers)</em> — a place where you
+<p class="user-annotated"><strong>Seam</strong> <em>(Michael Feathers)</em> — a place where you
 can alter behaviour without editing in that place; the <em>location</em>
 at which a module’s interface lives. Where to put the seam is its own
 design decision, distinct from what goes behind it. <em>Avoid</em>:
 boundary (overloaded with DDD’s bounded context).</p>
+<blockquote>
+<p><strong>我的批注：</strong><code>seam</code> 可以理解成：你可以从这里替换行为、切换实现、测试模块的那个接缝点。它不是普通的“代码分界线”，而是外部通过哪个 <code>interface</code> 接触内部逻辑的位置。</p>
+<pre><code>function inviteUser(email, emailSender) {
+  // ...
+  emailSender.send(email)
+}</code></pre>
+<p>这里 <code>emailSender</code> 就形成了一个 seam：生产环境可以传真实邮件服务，测试里可以传 fake email sender。你不用改 <code>inviteUser</code> 里面的代码，就能改变发邮件这个行为。</p>
+</blockquote>
 <p><strong>Adapter</strong> — a concrete thing that satisfies an
 interface at a seam. Describes <em>role</em> (what slot it fills), not
 substance (what’s inside).</p>

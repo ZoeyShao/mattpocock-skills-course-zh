@@ -98,9 +98,16 @@ its implementation, used by its own tests) as well as the
 <blockquote>
 <p><strong>我的批注：</strong>模块深不深，不看内部代码有多少，而看外部接口值不值。也就是说，<code>depth</code> 不是：这个模块里面有 1000 行代码，所以它很 <code>deep</code>。而是：调用者只需要学很小的接口，却能获得很多行为，所以它很 <code>deep</code>。</p>
 </blockquote></li>
-<li><strong>The deletion test.</strong> Imagine deleting the module. If
+<li><div class="user-annotated"><strong>The deletion test.</strong> Imagine deleting the module. If
 complexity vanishes, it was a pass-through. If complexity reappears
-across N callers, it was earning its keep.</li>
+across N callers, it was earning its keep.</div>
+<blockquote>
+<p><strong>我的批注：</strong><code>deletion test</code> 是假装把这个模块删掉，看复杂度会发生什么。如果删掉后复杂度也消失了，它可能只是薄转发层；如果删掉后复杂度重新散落到很多调用方，说明它原本真的在替系统承载复杂度。</p>
+<pre><code>function inviteUser(input) {
+  return inviteUserService.invite(input)
+}</code></pre>
+<p>这种模块删掉后，调用方直接调用 <code>inviteUserService.invite(input)</code> 就行，复杂度没有回来，所以它可能没赚到自己的存在感。</p>
+</blockquote></li>
 <li><strong>The interface is the test surface.</strong> Callers and
 tests cross the same seam. If you want to test <em>past</em> the
 interface, the module is probably the wrong shape.</li>

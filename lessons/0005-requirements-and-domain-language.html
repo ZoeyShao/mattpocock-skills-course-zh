@@ -14,9 +14,19 @@
     .meta { color:var(--muted); margin:0 0 30px; font-family:ui-sans-serif, system-ui, sans-serif; font-size:.95rem; }
     .panel { background:var(--panel); border:1px solid var(--line); padding:18px 20px; margin:18px 0; }
     .practice { background:var(--soft); border:1px solid #b8ddd7; padding:18px 20px; margin-top:18px; }
+    table { width:100%; border-collapse:collapse; background:white; margin:14px 0; }
+    th, td { border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top; }
+    th { color:var(--muted); font-family:ui-sans-serif, system-ui, sans-serif; font-size:.85rem; text-transform:uppercase; letter-spacing:.04em; }
     button { border:1px solid var(--accent); background:white; color:var(--accent); padding:8px 12px; font:600 .9rem ui-sans-serif, system-ui, sans-serif; cursor:pointer; }
     .answer { display:none; margin-top:12px; border-top:1px solid #b8ddd7; padding-top:12px; }
     ul, ol { padding-left:1.4rem; }
+    @media (max-width: 720px) {
+      table, thead, tbody, tr, th, td { display:block; width:100%; box-sizing:border-box; }
+      thead { display:none; }
+      tr { border:1px solid var(--line); margin:12px 0; }
+      td { border:0; border-bottom:1px solid var(--line); }
+      td:last-child { border-bottom:0; }
+    }
   </style>
 </head>
 <body>
@@ -38,6 +48,32 @@
       <li><a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a>：当场挑战模糊词，更新 <code>CONTEXT.md</code>，必要时写 ADR。</li>
       <li><a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a>：一边追问，一边对照现有领域文档和 ADR。</li>
     </ul>
+
+    <div class="panel">
+      <h2>domain-modeling 和 grill-with-docs 怎么选</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>它主要解决什么</th>
+            <th>什么时候用</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/domain-modeling.html"><code>domain-modeling</code></a></td>
+            <td>把领域概念变清楚：统一术语、划清边界、记录少量重要 ADR。</td>
+            <td>当问题集中在“这个东西到底叫什么、和另一个概念有什么区别、这个决策该不该记下来”。</td>
+          </tr>
+          <tr>
+            <td><a href="/mattpocock-skills-course-zh/reference/skills/grill-with-docs.html"><code>grill-with-docs</code></a></td>
+            <td>把一个具体方案追问清楚，并用已有 <code>CONTEXT.md</code> 和 ADR 检查它是否自洽。</td>
+            <td>当你已经有计划或设计，但担心边界、例外、术语和历史决策没有被问透。</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>简化判断：<strong>词和模型乱，用 <code>domain-modeling</code>；方案需要被拷问，用 <code>grill-with-docs</code></strong>。两者都需要时，先用 <code>domain-modeling</code> 定词，再用 <code>grill-with-docs</code> 压方案。</p>
+    </div>
 
     <div class="panel">
       <h2>判断顺序</h2>

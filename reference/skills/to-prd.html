@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>to-prd / SKILL.md</title>
-  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}.user-annotated{margin:18px 0;padding:10px 12px;border-left:4px solid #d97706;background:#fff7cc}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
 </head>
 <body>
 <div class="sourceCode" id="cb1"><pre
@@ -64,11 +64,14 @@ include:</p>
 </ul>
 <p>Do NOT include specific file paths or code snippets. They may end up
 being outdated very quickly.</p>
-<p>Exception: if a prototype produced a snippet that encodes a decision
+<p class="user-annotated">Exception: if a prototype produced a snippet that encodes a decision
 more precisely than prose can (state machine, reducer, schema, type
 shape), inline it within the relevant decision and note briefly that it
 came from a prototype. Trim to the decision-rich parts — not a working
 demo, just the important bits.</p>
+<blockquote>
+<p><strong>我的批注：</strong>PRD 不保存原型代码，PRD 只保存原型得出的关键结论。只有当一小段代码比文字更准确表达结论时，才摘那一小段。</p>
+</blockquote>
 <h2 id="testing-decisions">Testing Decisions</h2>
 <p>A list of testing decisions that were made. Include:</p>
 <ul>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DEEPENING.md</title>
-  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}.user-annotated{margin:18px 0;padding:10px 12px;border-left:4px solid #d97706;background:#fff7cc}@media print{body{background:white;margin:0;max-width:none}}</style>
 </head>
 <body>
 <h1 id="deepening">Deepening</h1>
@@ -12,7 +12,10 @@
 <h2 id="dependency-categories">Dependency categories</h2>
 <p>When assessing a candidate for deepening, classify its dependencies. The category determines how the deepened module is tested across its seam.</p>
 <h3 id="in-process">1. In-process</h3>
-<p>Pure computation, in-memory state, no I/O. Always deepenable — merge the modules and test through the new interface directly. No adapter needed.</p>
+<p class="user-annotated">Pure computation, in-memory state, no I/O. Always deepenable — merge the modules and test through the new interface directly. No adapter needed.</p>
+<blockquote>
+<p><strong>我的批注：</strong>这类依赖只发生在当前进程内：纯函数、内存对象、数组、Map 等，没有数据库、文件、网络、邮件或第三方 API。因为没有外部世界要替换，可以直接把零散浅模块合并到一个更深的接口后面，并通过这个新接口测试，不需要 adapter 或 mock。</p>
+</blockquote>
 <h3 id="local-substitutable">2. Local-substitutable</h3>
 <p>Dependencies that have local test stand-ins (PGLite for Postgres, in-memory filesystem). Deepenable if the stand-in exists. The deepened module is tested with the stand-in running in the test suite. The seam is internal; no port at the module's external interface.</p>
 <h3 id="remote-but-owned-ports-adapters">3. Remote but owned (Ports &amp; Adapters)</h3>

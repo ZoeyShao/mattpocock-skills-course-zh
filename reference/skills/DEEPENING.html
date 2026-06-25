@@ -17,7 +17,10 @@
 <p><strong>我的批注：</strong>这类依赖只发生在当前进程内：纯函数、内存对象、数组、Map 等，没有数据库、文件、网络、邮件或第三方 API。因为没有外部世界要替换，可以直接把零散浅模块合并到一个更深的接口后面，并通过这个新接口测试，不需要 adapter 或 mock。</p>
 </blockquote>
 <h3 id="local-substitutable">2. Local-substitutable</h3>
-<p>Dependencies that have local test stand-ins (PGLite for Postgres, in-memory filesystem). Deepenable if the stand-in exists. The deepened module is tested with the stand-in running in the test suite. The seam is internal; no port at the module's external interface.</p>
+<p class="user-annotated">Dependencies that have local test stand-ins (PGLite for Postgres, in-memory filesystem). Deepenable if the stand-in exists. The deepened module is tested with the stand-in running in the test suite. The seam is internal; no port at the module's external interface.</p>
+<blockquote>
+<p><strong>我的批注：</strong>这类依赖确实有 I/O，但测试里能用本地替身跑起来，例如用 PGLite 代替 Postgres、用内存文件系统代替真实文件系统。它可以 deepening，但这个替身通常只是模块内部测试策略；不要为了测试方便，把 <code>databaseAdapter</code> 之类的参数暴露成业务模块的外部接口。</p>
+</blockquote>
 <h3 id="remote-but-owned-ports-adapters">3. Remote but owned (Ports &amp; Adapters)</h3>
 <p>Your own services across a network boundary (microservices, internal APIs). Define a <strong>port</strong> (interface) at the seam. The deep module owns the logic; the transport is injected as an <strong>adapter</strong>. Tests use an in-memory adapter. Production uses an HTTP/gRPC/queue adapter.</p>
 <p>Recommendation shape: <em>"Define a port at the seam, implement an HTTP adapter for production and an in-memory adapter for testing, so the logic sits in one deep module even though it's deployed across a network."</em></p>

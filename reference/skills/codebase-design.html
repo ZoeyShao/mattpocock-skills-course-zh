@@ -89,12 +89,15 @@ implementation (avoid):</p>
 </ul>
 <h2 id="principles">Principles</h2>
 <ul>
-<li><strong>Depth is a property of the interface, not the
+<li><div class="user-annotated"><strong>Depth is a property of the interface, not the
 implementation.</strong> A deep module can be internally composed of
 small, mockable, swappable parts — they just aren’t part of the
 interface. A module can have <strong>internal seams</strong> (private to
 its implementation, used by its own tests) as well as the
-<strong>external seam</strong> at its interface.</li>
+<strong>external seam</strong> at its interface.</div>
+<blockquote>
+<p><strong>我的批注：</strong>模块深不深，不看内部代码有多少，而看外部接口值不值。也就是说，<code>depth</code> 不是：这个模块里面有 1000 行代码，所以它很 <code>deep</code>。而是：调用者只需要学很小的接口，却能获得很多行为，所以它很 <code>deep</code>。</p>
+</blockquote></li>
 <li><strong>The deletion test.</strong> Imagine deleting the module. If
 complexity vanishes, it was a pass-through. If complexity reappears
 across N callers, it was earning its keep.</li>

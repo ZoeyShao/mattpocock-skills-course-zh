@@ -130,7 +130,7 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb4-
 <blockquote>
 <p><strong>我的批注：</strong>依赖由外部提供，模块只使用它，不负责创建它。这样会形成一个清楚的 <code>seam</code>，测试可以轻松替换行为。</p>
 </blockquote></li>
-<li><p><strong>Return results, don’t produce side effects.</strong></p>
+<li><div class="user-annotated"><p><strong>Return results, don’t produce side effects.</strong></p>
 <div class="sourceCode" id="cb5"><pre
 class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Testable</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">calculateDiscount</span>(cart)<span class="op">:</span> Discount {}</span>
@@ -138,7 +138,10 @@ class="sourceCode typescript"><code class="sourceCode typescript"><span id="cb5-
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Hard to test</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">applyDiscount</span>(cart)<span class="op">:</span> <span class="dt">void</span> {</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  cart<span class="op">.</span><span class="at">total</span> <span class="op">-=</span> discount<span class="op">;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></li>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div></div>
+<blockquote>
+<p><strong>我的批注：</strong>优先把计算写成“输入 -&gt; 输出”，少做隐藏修改。返回结果的函数更容易断言；直接改传入对象或外部状态的函数，需要测试去追踪副作用，接口也更不透明。</p>
+</blockquote></li>
 <li><p><strong>Small surface area.</strong> Fewer methods = fewer tests
 needed. Fewer params = simpler test setup.</p></li>
 </ol>

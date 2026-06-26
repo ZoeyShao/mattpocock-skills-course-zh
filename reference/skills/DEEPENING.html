@@ -39,7 +39,10 @@
 <li>Old unit tests on shallow modules become waste once tests at the deepened module's interface exist — delete them.</li>
 <li>Write new tests at the deepened module's interface. The <strong>interface is the test surface</strong>.</li>
 <li>Tests assert on observable outcomes through the interface, not internal state.</li>
-<li>Tests should survive internal refactors — they describe behaviour, not implementation. If a test has to change when the implementation changes, it's testing past the interface.</li>
+<li><div class="user-annotated">Tests should survive internal refactors — they describe behaviour, not implementation. If a test has to change when the implementation changes, it's testing past the interface.</div>
+<blockquote>
+<p><strong>我的批注：</strong>测试应该验证模块对外表现出来的行为，而不是验证模块内部怎么写。测试越过公开接口，钻进内部实现细节里；这样一重构，行为没变，测试也会坏，测试就变成了维护负担。</p>
+</blockquote></li>
 </ul>
 <script src="link-skills.js"></script>
 </body>

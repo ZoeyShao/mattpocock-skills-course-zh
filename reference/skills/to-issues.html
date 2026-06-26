@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>to-issues / SKILL.md</title>
-  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}.user-annotated{margin:18px 0;padding:10px 12px;border-left:4px solid #d97706;background:#fff7cc}@media print{body{background:white;margin:0;max-width:none}}</style>
 </head>
 <body>
 <div class="sourceCode" id="cb1"><pre
@@ -30,9 +30,12 @@ the current state of the code. Issue titles and descriptions should use
 the project’s domain glossary vocabulary, and respect ADRs in the area
 you’re touching.</p>
 <h3 id="draft-vertical-slices">3. Draft vertical slices</h3>
-<p>Break the plan into <strong>tracer bullet</strong> issues. Each issue
+<p class="user-annotated">Break the plan into <strong>tracer bullet</strong> issues. Each issue
 is a thin vertical slice that cuts through ALL integration layers
 end-to-end, NOT a horizontal slice of one layer.</p>
+<blockquote>
+<p><strong>我的批注：</strong>这里是 <code>to-issues</code> 的核心。选择 vertical slice 而不是 horizontal slice，是因为 vertical 的反馈更快：每个 issue 都穿过 schema、API、UI、测试等必要层，完成后可以单独演示或验证。horizontal slice 只做某一层，比如“先建完数据库”或“先写完 API”，通常要等很多层都完成后才知道方向是否正确。</p>
+</blockquote>
 <p>Slices may be ‘HITL’ or ‘AFK’. HITL slices require human interaction,
 such as an architectural decision or a design review. AFK slices can be
 implemented and merged without human interaction. Prefer AFK over HITL

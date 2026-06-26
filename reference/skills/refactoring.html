@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>refactoring.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<h1 id="refactor-candidates">Refactor Candidates</h1>
+<p>After TDD cycle, look for:</p>
+<ul>
+<li><strong>Duplication</strong> → Extract function/class</li>
+<li><strong>Long methods</strong> → Break into private helpers (keep
+tests on public interface)</li>
+<li><strong>Shallow modules</strong> → Combine or deepen</li>
+<li><strong>Feature envy</strong> → Move logic to where data lives</li>
+<li><strong>Primitive obsession</strong> → Introduce value objects</li>
+<li><strong>Existing code</strong> the new code reveals as
+problematic</li>
+</ul>
+<script src="link-skills.js"></script>
+</body>
+</html>

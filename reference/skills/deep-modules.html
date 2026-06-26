@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>deep-modules.md</title>
+  <style>body{max-width:880px;margin:44px auto;padding:0 24px 72px;font-family:ui-serif,Georgia,"Noto Serif CJK SC","Source Han Serif SC",serif;line-height:1.65;color:#1f2933;background:#fbfaf7}code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#0f766e}pre{background:#f4f6f8;border:1px solid #d8dee6;padding:14px;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:#0f4f4a;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#0f766e}blockquote{margin:18px 0;padding:12px 16px;border-left:4px solid #0f766e;background:white}table{border-collapse:collapse;background:white;border:1px solid #d8dee6;margin:14px 0 26px}td,th{border-bottom:1px solid #d8dee6;padding:10px 12px;text-align:left;vertical-align:top}@media print{body{background:white;margin:0;max-width:none}}</style>
+</head>
+<body>
+<h1 id="deep-modules">Deep Modules</h1>
+<p>From “A Philosophy of Software Design”:</p>
+<p><strong>Deep module</strong> = small interface + lots of
+implementation</p>
+<pre><code>┌─────────────────────┐
+│   Small Interface   │  ← Few methods, simple params
+├─────────────────────┤
+│                     │
+│                     │
+│  Deep Implementation│  ← Complex logic hidden
+│                     │
+│                     │
+└─────────────────────┘</code></pre>
+<p><strong>Shallow module</strong> = large interface + little
+implementation (avoid)</p>
+<pre><code>┌─────────────────────────────────┐
+│       Large Interface           │  ← Many methods, complex params
+├─────────────────────────────────┤
+│  Thin Implementation            │  ← Just passes through
+└─────────────────────────────────┘</code></pre>
+<p>When designing interfaces, ask:</p>
+<ul>
+<li>Can I reduce the number of methods?</li>
+<li>Can I simplify the parameters?</li>
+<li>Can I hide more complexity inside?</li>
+</ul>
+<script src="link-skills.js"></script>
+</body>
+</html>
